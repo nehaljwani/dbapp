@@ -135,6 +135,7 @@ CREATE TABLE `Driver` (
 
 LOCK TABLES `Driver` WRITE;
 /*!40000 ALTER TABLE `Driver` DISABLE KEYS */;
+INSERT INTO `Driver` VALUES (2,'IUHSD7461');
 /*!40000 ALTER TABLE `Driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +147,7 @@ DROP TABLE IF EXISTS `Employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Employee` (
-  `EmpID` int(10) NOT NULL DEFAULT '0',
+  `EmpID` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
   `Address` varchar(500) DEFAULT NULL,
@@ -155,7 +156,7 @@ CREATE TABLE `Employee` (
   `PAN` char(10) DEFAULT NULL,
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmpID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,6 +165,7 @@ CREATE TABLE `Employee` (
 
 LOCK TABLES `Employee` WRITE;
 /*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
+INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABCDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver');
 /*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,7 +290,7 @@ CREATE TABLE `Items` (
   PRIMARY KEY (`ID`),
   KEY `Brand` (`Brand`),
   CONSTRAINT `Items_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,6 +324,7 @@ CREATE TABLE `Manager` (
 
 LOCK TABLES `Manager` WRITE;
 /*!40000 ALTER TABLE `Manager` DISABLE KEYS */;
+INSERT INTO `Manager` VALUES (1,'Sales');
 /*!40000 ALTER TABLE `Manager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -720,4 +723,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-01 21:03:44
+-- Dump completed on 2012-11-04 18:25:52

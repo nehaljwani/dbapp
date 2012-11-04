@@ -44,6 +44,32 @@ function generateItems($query){
 	return $string;
 }
 
+function generateEmployee($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td><a href=editEmployee.php?EmpID=".$rows['EmpID']."&Category=".$rows['Category'].">".$row."</a></td>";
+		}
+		$string.="</tr>";
+	}   
+	return $string;
+}
+
+function getEmployeeDetails($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	$row=mysql_fetch_assoc($result);
+	$fields=array_keys($row);
+	foreach($fields as $detail){
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='empDet' name='".$detail."'></td></tr>\n";
+	}
+	return $string;
+}
+
 function data2Table($query){
 	dbconnect();
 	$result=execute($query);

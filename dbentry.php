@@ -26,8 +26,7 @@ if($referer=='registration.php'){
 		header('Refresh: 2; URL=login.php');
 	}
 }
-else if($referer=='raiseTicket.php')
-{
+else if($referer=='raiseTicket.php'){
 	$defaultStatus = "Unread";
 	$query = "INSERT INTO Ticket(CustID, Grievance, Status)  VALUES(
 		'".$_POST['ID']."',
@@ -38,7 +37,46 @@ else if($referer=='raiseTicket.php')
 		echo "Successfully submitted. Redirecting...";
 		header("Refresh: 2; URL={$referer}");
 	}
-
 }
-
+else if($referer=='employee.php'){
+	$query="INSERT INTO Employee(Name,DOB,Address,DOJ,Salary,PAN,Category) VALUES(
+		'".$_POST['Name']."',
+		'".$_POST['DOB']."',
+		'".$_POST['Address']."',
+		'".$_POST['DOJ']."',
+		'".$_POST['Salary']."',
+		'".$_POST['PAN']."',
+		'".$_POST['Category']."'
+	);";
+	if(!execute($query)){
+		echo "Employee Registration Unsuccessfull! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+	print_r($_POST);
+	$EmpID=mysql_fetch_assoc(execute("SELECT EmpID FROM Employee ORDER BY EmpID DESC LIMIT 1;"));
+	$query="INSERT INTO ".$_POST['Category']." VALUES(
+		'".$EmpID['EmpID']."',
+		'".$_POST['Field2']."'
+	);";
+	if(execute($query)){
+		echo "Employee Registration Successfull! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'editEmployee.php')){
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Employee';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE Employee SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE EmpID=".$_POST['EmpID'].";";
+		echo $query."<br>";
+		execute($query);
+	}
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='".$_POST['Category']."';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE ".$_POST['Category']." SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE EmpID=".$_POST['EmpID'].";";
+		echo $query."<br>";
+		execute($query);
+	}
+}
 ?>
