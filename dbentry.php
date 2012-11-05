@@ -84,7 +84,7 @@ else if(strpos($_SERVER['HTTP_REFERER'],'vendor.php')){
 		'".$_POST['Phone']."'
 	);";
 	if(!execute($query)){
-		echo "Vendor added Successfully! Redirecting...";
+		echo "Vendor addition unsuccessfull! Redirecting...";
 		header("Refresh: 2; URL={$referer}");
 	}
 	print_r($_POST);
@@ -117,6 +117,35 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editVendor.php')){
 		header("Refresh: 2; URL={$referer}");
 	}
 }
+else if(strpos($_SERVER['HTTP_REFERER'],'item.php')){
+	$query="INSERT INTO Items(Name,Description,Brand,Price,Category) VALUES(
+		'".$_POST['Name']."',
+		'".$_POST['Description']."',
+		'".$_POST['Brand']."',
+		'".$_POST['Price']."',
+		'".$_POST['Category']."'
+	);";
+	if(!execute($query)){
+		echo "Item Entry Unsuccessfull! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+	print_r($_POST);
+	$ID=mysql_fetch_assoc(execute("SELECT ID FROM Items ORDER BY ID DESC LIMIT 1;"));
+	$string="";
+	for($i=1;$i<=10;$i++){
+		if(($_POST['Field'.$i]))
+			$string.=",'".$_POST['Field'.$i]."'";
+	}          
+	$query="INSERT INTO ".$_POST['Category']." VALUES(
+		'".$ID['ID']."'
+		".$string."
+	);";
+	echo $query;
+	if(execute($query)){
+		echo "Item Successfully Added! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+}
 else if(strpos($_SERVER['HTTP_REFERER'],'editItem.php')){
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Items';";
 	$result=execute($query);
@@ -133,5 +162,67 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editItem.php')){
 		execute($query);
 	}
 }
+else if(strpos($_SERVER['HTTP_REFERER'],'serviceCenter.php')){
+	$query="INSERT INTO AuthorizedSC(Brand,Address,Phone) VALUES(
+		'".$_POST['Brand']."',
+		'".$_POST['Address']."',
+		'".$_POST['Phone']."'
+	);";
+	if(!execute($query)){
+		echo "ASC addition unsuccessfull! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+	print_r($_POST);
+	$ASCID=mysql_fetch_assoc(execute("SELECT ASCID FROM AuthorizedSC ORDER BY ASCID DESC LIMIT 1;"));
+	$query="INSERT INTO AuthorizedService VALUES(
+		'".$ASCID['ASCID']."',
+		'".$_POST['ServicesSupported']."'
+	);";
+	if(execute($query)){
+		echo "New Vendor added successfully! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
 
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'editServiceCenter.php')){
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='AuthorizedSC';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE AuthorizedSC SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ASCID=".$_POST['ASCID'].";";
+		echo $query."<br>";
+		execute($query);
+	}
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='AuthorizedService';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE AuthorizedService SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ASCID=".$_POST['ASCID'].";";
+		echo $query."<br>";
+		execute($query);
+	}
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'brand.php')){
+	$query="INSERT INTO Brand(Name,Description,Rating) VALUES(
+		'".$_POST['Name']."',
+		'".$_POST['Description']."',
+		'".$_POST['Rating']."'
+	);";
+	if(!execute($query)){
+		echo "Brand addition unsuccessfull! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+	else{
+		echo "New Brand added successfully! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'editBrand.php')){
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Brand';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE Brand SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE Name='".$_POST['Name']."';";
+		echo $query."<br>";
+		execute($query);
+	}
+}
 ?>

@@ -23,12 +23,14 @@ DROP TABLE IF EXISTS `AuthorizedSC`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `AuthorizedSC` (
-  `ASCID` int(10) NOT NULL DEFAULT '0',
-  `Brand` int(10) DEFAULT NULL,
+  `ASCID` int(10) NOT NULL AUTO_INCREMENT,
+  `Brand` varchar(100) DEFAULT NULL,
   `Address` varchar(500) DEFAULT NULL,
-  `Phone` int(15) DEFAULT NULL,
-  PRIMARY KEY (`ASCID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Phone` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`ASCID`),
+  KEY `Brand` (`Brand`),
+  CONSTRAINT `AuthorizedSC_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +39,7 @@ CREATE TABLE `AuthorizedSC` (
 
 LOCK TABLES `AuthorizedSC` WRITE;
 /*!40000 ALTER TABLE `AuthorizedSC` DISABLE KEYS */;
+INSERT INTO `AuthorizedSC` VALUES (1,'Toshiba','Toshiba America Information Systems, Inc. Digital Products Division 9740 Irvine Boulevard Irvine, CA 92618-1697','(949) 583-3000');
 /*!40000 ALTER TABLE `AuthorizedSC` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +52,9 @@ DROP TABLE IF EXISTS `AuthorizedService`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `AuthorizedService` (
   `ASCID` int(10) DEFAULT NULL,
-  `ServicesSupported` varchar(500) DEFAULT NULL
+  `ServicesSupported` varchar(500) DEFAULT NULL,
+  KEY `ASCID` (`ASCID`),
+  CONSTRAINT `AuthorizedService_ibfk_1` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,6 +64,7 @@ CREATE TABLE `AuthorizedService` (
 
 LOCK TABLES `AuthorizedService` WRITE;
 /*!40000 ALTER TABLE `AuthorizedService` DISABLE KEYS */;
+INSERT INTO `AuthorizedService` VALUES (1,'X,Y,Z');
 /*!40000 ALTER TABLE `AuthorizedService` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +89,7 @@ CREATE TABLE `Brand` (
 
 LOCK TABLES `Brand` WRITE;
 /*!40000 ALTER TABLE `Brand` DISABLE KEYS */;
-INSERT INTO `Brand` VALUES ('AMD','Description7',4),('Dell','Description5',3),('Intel','Motherboard D845GVSR',4),('Microsoft','Description2',5),('Seagate','Description6',6),('Sony','Description3',4),('Tp-Link','Description4',4);
+INSERT INTO `Brand` VALUES ('AMD','Description7',4),('Dell','Description5',3),('Intel','Motherboard D845GVSR',4),('LG','Life is Gud',7),('Microsoft','Description2',5),('Seagate','Description6',6),('Sony','Description3',4),('Toshiba','Description19',6),('Tp-Link','Description4',4);
 /*!40000 ALTER TABLE `Brand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +107,7 @@ CREATE TABLE `Customer` (
   `Name` varchar(100) NOT NULL,
   `Phone` varchar(15) NOT NULL,
   PRIMARY KEY (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +116,7 @@ CREATE TABLE `Customer` (
 
 LOCK TABLES `Customer` WRITE;
 /*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (5,'OBH','kkiddu@yahoo.com','Ankush Jain','123456'),(6,'Hogwarts','harry@hogwarts.edu','Harry Potter','555555'),(7,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723'),(8,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723'),(9,'11213','monkey@jungle.com','Monkey','90129723'),(10,'11213','donkey@in.com','Donkey','90129723'),(11,'11213','jungle@in.com','Jungleq','90129723');
+INSERT INTO `Customer` VALUES (5,'OBH','kkiddu@yahoo.com','Ankush Jain','123456'),(6,'Hogwarts','harry@hogwarts.edu','Harry Potter','555555'),(7,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723'),(8,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723'),(9,'11213','monkey@jungle.com','Monkey','90129723'),(10,'11213','donkey@in.com','Donkey','90129723'),(11,'11213','jungle@in.com','Jungleq','90129723'),(12,'','','','');
 /*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +162,7 @@ CREATE TABLE `Employee` (
   `PAN` char(10) DEFAULT NULL,
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmpID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +171,7 @@ CREATE TABLE `Employee` (
 
 LOCK TABLES `Employee` WRITE;
 /*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABCDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver');
+INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABCDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver'),(3,'Nehal','1993-08-06','#2008, Sabzi Street, Mumbai','2012-11-13',50000,'ABHNJ0493L','Manager');
 /*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,10 +264,10 @@ DROP TABLE IF EXISTS `HDD`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `HDD` (
   `ID` int(10) NOT NULL DEFAULT '0',
-  `Size` int(5) DEFAULT NULL,
+  `Size` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `HDD_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`),
-  CONSTRAINT `HDD_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
+  CONSTRAINT `HDD_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`),
+  CONSTRAINT `HDD_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -271,6 +277,7 @@ CREATE TABLE `HDD` (
 
 LOCK TABLES `HDD` WRITE;
 /*!40000 ALTER TABLE `HDD` DISABLE KEYS */;
+INSERT INTO `HDD` VALUES (5,'1TB');
 /*!40000 ALTER TABLE `HDD` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +298,7 @@ CREATE TABLE `Items` (
   PRIMARY KEY (`ID`),
   KEY `Brand` (`Brand`),
   CONSTRAINT `Items_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +307,7 @@ CREATE TABLE `Items` (
 
 LOCK TABLES `Items` WRITE;
 /*!40000 ALTER TABLE `Items` DISABLE KEYS */;
-INSERT INTO `Items` VALUES (1,'Desc1','Intel','8D6DASD4',15000,'Motherboard'),(2,'Desc2.5','Intel','KD45ASD4',25000,'Motherboard'),(3,'Desc3','AMD','A-15ASD4',17000,'Motherboard');
+INSERT INTO `Items` VALUES (1,'Desc1','Intel','8D6DASD4',15000,'Motherboard'),(2,'Desc2.5','Intel','KD45ASD4',25000,'Motherboard'),(3,'Desc3','AMD','A-15ASD4',17000,'Motherboard'),(5,'Occupies less volume and is portable.','Toshiba','Toshiba Canvio Basic 3.0 1 ',4999,'HDD'),(6,' 4 Cores, 2 MB (L2), 6 MB (L3), 45 nm Manufacturing Process','AMD','AM3 Athlon II 260 Processor',6784,'Processor');
 /*!40000 ALTER TABLE `Items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +332,7 @@ CREATE TABLE `Manager` (
 
 LOCK TABLES `Manager` WRITE;
 /*!40000 ALTER TABLE `Manager` DISABLE KEYS */;
-INSERT INTO `Manager` VALUES (1,'Sales');
+INSERT INTO `Manager` VALUES (1,'Sales'),(3,'');
 /*!40000 ALTER TABLE `Manager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,6 +433,7 @@ CREATE TABLE `Processor` (
 
 LOCK TABLES `Processor` WRITE;
 /*!40000 ALTER TABLE `Processor` DISABLE KEYS */;
+INSERT INTO `Processor` VALUES (6,3,2);
 /*!40000 ALTER TABLE `Processor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -664,7 +672,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('deepesh','bf76b73579ee889af881',0),('deepesh2','8e755aa8fc8d51bd2877',0),('donkey','d0763edaa9d9bd2a9516',0),('harry','3b87c97d15e8eb11e51a',0),('jungle','b9c3a255a10d7e0db510',0),('monkey','9443b0fceb8c03b6a514',0);
+INSERT INTO `User` VALUES ('deepesh','bf76b73579ee889af881',0),('deepesh2','8e755aa8fc8d51bd2877',0),('donkey','d0763edaa9d9bd2a9516',0),('harry','3b87c97d15e8eb11e51a',0),('jungle','b9c3a255a10d7e0db510',0),('monkey','9443b0fceb8c03b6a514',0),('user1@students.iiit.','24c9e15e52afc47c225b',0);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -728,4 +736,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-05 23:33:05
+-- Dump completed on 2012-11-06  2:30:31

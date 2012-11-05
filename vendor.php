@@ -4,16 +4,16 @@
 	$query="SELECT * FROM Vendor NATURAL JOIN VendorBrands;";
 ?>
 <div class="post">
-	<h2 class="title"><a href="#">Welcome to Keyboard </a></h2>
+	<h2 class="title"><a href="#">Vendor List </a></h2>
 	<p class="meta">
-	<span class="date">September 12, 2012</span>
-	<span class="posted">Posted by <a href="#">Someone</a></span>
+	<span class="date">Click to edit the details of any Vendor!</span>
 	</p>
 	<div style="clear: both;">&nbsp;</div>
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<script type='text/javascript' src='./js/vendor.js'></script>
-	<button type="button" id='view'>View Vendors</button>
-	<button type="button" id='add'>Add Vendor</button>
+	<button type="button" id='view' class="more">View Vendors</button>
+	<button type="button" id='add' class="more">Add a Vendor</button>
+	<br><br><br><br>
 	<div class="entry">
 		<table id="vendorDetails" >
 			<thead>
@@ -47,11 +47,7 @@
 					<td><input type="text" name="Brands"></td>
 				</tr>
 			</table>		
-			<input type="submit">
-			<p class="links">	
-			<a href="#" class="more">Read More</a>
-			<a href="#" title="b0x" class="comments">Comments</a>
-			</p>	
+			<input type="submit" class="more">
 		</form>	
 	</div>
 </div>

@@ -86,6 +86,33 @@ function generateVendor($query){
 	return $string;
 }
 
+function generateASC($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td><a href=editASC.php?ASCID=".$rows['ASCID'].">".$row."</a></td>";
+		}
+		$string.="</tr>";
+	}   
+	return $string;
+}
+function generateBrand($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td><a href=editBrand.php?Name='".$rows['Name']."'>".$row."</a></td>";
+		}
+		$string.="</tr>";
+	}   
+	return $string;
+}
+
 function getEmployeeDetails($query){
 	dbconnect();
 	$result=execute($query);
@@ -94,6 +121,32 @@ function getEmployeeDetails($query){
 	$fields=array_keys($row);
 	foreach($fields as $detail){
 		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='empDet' name='".$detail."'></td></tr>\n";
+	}
+	return $string;
+}
+
+function getBrandDetails($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	$row=mysql_fetch_assoc($result);
+	$fields=array_keys($row);
+	foreach($fields as $detail){
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='brandDet' name='".$detail."'></td></tr>\n";
+	}
+	return $string;
+}
+
+
+
+function getASCDetails($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	$row=mysql_fetch_assoc($result);
+	$fields=array_keys($row);
+	foreach($fields as $detail){
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='ASCDet' name='".$detail."'></td></tr>\n";
 	}
 	return $string;
 }

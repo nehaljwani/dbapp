@@ -20,8 +20,10 @@ Admin	 View/Add Employee	employee.php
 	 Edit Vendor		editVendor.php
 	 View/Add Item		item.php
 	 Edit Item		editItem.php
-	 View/Add ASC		vendor.php
-	 Edit ASC		editVendor.php
+	 View/Add ASC		serviceCenter.php	
+	 Edit ASC		editServiceCenter.php
+	 View/Add Brand		brand.php	
+	 Edit Brand		editBrand.php
 	 Ticket Status Modify	???
 	 View All Feedback	???
 	 Make Supply Order	???
