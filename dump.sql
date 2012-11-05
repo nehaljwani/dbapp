@@ -156,7 +156,7 @@ CREATE TABLE `Employee` (
   `PAN` char(10) DEFAULT NULL,
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmpID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,6 +260,7 @@ CREATE TABLE `HDD` (
   `ID` int(10) NOT NULL DEFAULT '0',
   `Size` int(5) DEFAULT NULL,
   PRIMARY KEY (`ID`),
+  CONSTRAINT `HDD_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`),
   CONSTRAINT `HDD_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -299,7 +300,7 @@ CREATE TABLE `Items` (
 
 LOCK TABLES `Items` WRITE;
 /*!40000 ALTER TABLE `Items` DISABLE KEYS */;
-INSERT INTO `Items` VALUES (1,'Desc1','Intel','8D6DASD4',15000,'Motherboard'),(2,'Desc2','Intel','KD45ASD4',25000,'Motherboard'),(3,'Desc3','AMD','A-15ASD4',17000,'Motherboard');
+INSERT INTO `Items` VALUES (1,'Desc1','Intel','8D6DASD4',15000,'Motherboard'),(2,'Desc2.5','Intel','KD45ASD4',25000,'Motherboard'),(3,'Desc3','AMD','A-15ASD4',17000,'Motherboard');
 /*!40000 ALTER TABLE `Items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -625,11 +626,11 @@ CREATE TABLE `Ticket` (
   `TicketNo` int(10) NOT NULL AUTO_INCREMENT,
   `Grievance` varchar(200) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Status` varchar(200) DEFAULT NULL,
+  `Status` varchar(200) DEFAULT 'Unread',
   PRIMARY KEY (`TicketNo`),
   KEY `CustID` (`CustID`),
   CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -638,7 +639,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (5,4,'My CPU gets too hot','0000-00-00 00:00:00','Unread'),(5,5,'My CPU gets too hot','0000-00-00 00:00:00','Unread'),(5,6,'Foo bar','2012-11-01 15:10:30','Unread'),(5,7,'Boo baa','2012-11-01 15:11:33','Unread'),(5,8,'Test test','2012-11-01 15:12:16','Unread'),(5,9,'Whoosh','2012-11-01 15:22:59','Unread');
+INSERT INTO `Ticket` VALUES (5,4,'My CPU gets too hot','0000-00-00 00:00:00','Unread'),(5,5,'My CPU gets too hot','0000-00-00 00:00:00','Unread'),(5,6,'Foo bar','2012-11-01 15:10:30','Unread'),(5,7,'Boo baa','2012-11-01 15:11:33','Unread'),(5,8,'Test test','2012-11-01 15:12:16','Unread'),(5,9,'Whoosh','2012-11-01 15:22:59','Unread'),(5,12,'trackpad','2012-11-05 18:00:14','Unread'),(5,13,'','2012-11-05 18:00:39','Unread');
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -675,12 +676,12 @@ DROP TABLE IF EXISTS `Vendor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Vendor` (
-  `VendID` int(10) NOT NULL DEFAULT '0',
+  `VendID` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) DEFAULT NULL,
   `Address` varchar(500) DEFAULT NULL,
   `Phone` int(15) DEFAULT NULL,
   PRIMARY KEY (`VendID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -689,6 +690,7 @@ CREATE TABLE `Vendor` (
 
 LOCK TABLES `Vendor` WRITE;
 /*!40000 ALTER TABLE `Vendor` DISABLE KEYS */;
+INSERT INTO `Vendor` VALUES (1,'James Shaw Hadden','#508-B, Sacred Road, Market Area, Downhatten',129);
 /*!40000 ALTER TABLE `Vendor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -700,8 +702,10 @@ DROP TABLE IF EXISTS `VendorBrands`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `VendorBrands` (
-  `VendorID` int(10) DEFAULT NULL,
-  `Brands` varchar(500) DEFAULT NULL
+  `VendID` int(10) NOT NULL DEFAULT '0',
+  `Brands` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`VendID`),
+  CONSTRAINT `VendorBrands_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -711,6 +715,7 @@ CREATE TABLE `VendorBrands` (
 
 LOCK TABLES `VendorBrands` WRITE;
 /*!40000 ALTER TABLE `VendorBrands` DISABLE KEYS */;
+INSERT INTO `VendorBrands` VALUES (1,'Samsung, LG');
 /*!40000 ALTER TABLE `VendorBrands` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -723,4 +728,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-04 18:25:52
+-- Dump completed on 2012-11-05 23:33:05

@@ -27,11 +27,9 @@ if($referer=='registration.php'){
 	}
 }
 else if($referer=='raiseTicket.php'){
-	$defaultStatus = "Unread";
-	$query = "INSERT INTO Ticket(CustID, Grievance, Status)  VALUES(
+	$query = "INSERT INTO Ticket(CustID, Grievance)  VALUES(
 		'".$_POST['ID']."',
-		'".$_POST['Grievance']."',
-		'".$defaultStatus."'
+		'".$_POST['Grievance']."'
 	);";
 	if(execute($query)){
 		echo "Successfully submitted. Redirecting...";
@@ -119,4 +117,21 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editVendor.php')){
 		header("Refresh: 2; URL={$referer}");
 	}
 }
+else if(strpos($_SERVER['HTTP_REFERER'],'editItem.php')){
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Items';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE Items SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ID=".$_POST['ID'].";";
+		echo $query."<br>";
+		execute($query);
+	}
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='".$_POST['Category']."';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE ".$_POST['Category']." SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ID=".$_POST['ID'].";";
+		echo $query."<br>";
+		execute($query);
+	}
+}
+
 ?>

@@ -44,6 +44,20 @@ function generateItems($query){
 	return $string;
 }
 
+function generateItems2($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td><a href=editItem.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+		}
+		$string.="</tr>";
+	}   
+	return $string;
+}
+
 function generateEmployee($query){
 	dbconnect();
 	$result=execute($query);
@@ -95,6 +109,19 @@ function getVendorDetails($query){
 	}
 	return $string;
 }
+
+function getItemDetails($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	$row=mysql_fetch_assoc($result);
+	$fields=array_keys($row);
+	foreach($fields as $detail){
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='itemDet' name='".$detail."'></td></tr>\n";
+	}
+	return $string;
+}
+
 
 function data2Table($query){
 	dbconnect();
