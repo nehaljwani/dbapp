@@ -79,4 +79,44 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editEmployee.php')){
 		execute($query);
 	}
 }
+else if(strpos($_SERVER['HTTP_REFERER'],'vendor.php')){
+	$query="INSERT INTO Vendor(Name,Address,Phone) VALUES(
+		'".$_POST['Name']."',
+		'".$_POST['Address']."',
+		'".$_POST['Phone']."'
+	);";
+	if(!execute($query)){
+		echo "Vendor added Successfully! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+	print_r($_POST);
+	$vendID=mysql_fetch_assoc(execute("SELECT VendID FROM Vendor ORDER BY VendID DESC LIMIT 1;"));
+	$query="INSERT INTO VendorBrands VALUES(
+		'".$vendID['VendID']."',
+		'".$_POST['Brands']."'
+	);";
+	if(execute($query)){
+		echo "New Vendor added successfully! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'editVendor.php')){
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Vendor';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE Vendor SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE VendID=".$_POST['VendID'].";";
+		execute($query);
+	}
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='VendorBrands';";
+	$result=execute($query);
+	while($field=mysql_fetch_array($result)){
+		$query="UPDATE VendorBrands SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE VendID=".$_POST['VendID'].";";
+		execute($query);
+	}
+	if(execute($query)){
+		echo "Vendor details modified successfully! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+}
 ?>
