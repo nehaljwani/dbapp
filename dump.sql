@@ -108,7 +108,7 @@ CREATE TABLE `Customer` (
   `Phone` varchar(15) NOT NULL,
   `Username` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `Customer` (
 
 LOCK TABLES `Customer` WRITE;
 /*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (14,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723','user1');
+INSERT INTO `Customer` VALUES (14,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723','user1'),(15,'#113, Patiala, Punjab','anku.94@gmail.com','Ankush','9052488912','ankush'),(16,'#304, Muzzaffarnagar, Uttar Pradesh','mayankrocks.1993@gmail.com','Mayank','9052400628','mayank');
 /*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,13 +208,13 @@ DROP TABLE IF EXISTS `Feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Feedback` (
+  `CustID` int(10) DEFAULT NULL,
   `OrderID` int(10) DEFAULT NULL,
   `TicketNo` int(10) NOT NULL DEFAULT '0',
   `Feedback` varchar(1000) DEFAULT NULL,
   `Rating` int(5) DEFAULT NULL,
-  PRIMARY KEY (`TicketNo`),
-  KEY `OrderID` (`OrderID`),
-  CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+  KEY `CustID` (`CustID`),
+  CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -224,6 +224,7 @@ CREATE TABLE `Feedback` (
 
 LOCK TABLES `Feedback` WRITE;
 /*!40000 ALTER TABLE `Feedback` DISABLE KEYS */;
+INSERT INTO `Feedback` VALUES (15,2,14,'Product is awesome.',10),(16,0,0,'Product Is Bad.',5);
 /*!40000 ALTER TABLE `Feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,7 +399,7 @@ CREATE TABLE `OrderItems` (
   `OrderID` int(10) NOT NULL DEFAULT '0',
   `Item` varchar(100) DEFAULT NULL,
   `Quantity` int(10) DEFAULT NULL,
-  PRIMARY KEY (`OrderID`),
+  KEY `OrderID` (`OrderID`),
   CONSTRAINT `OrderItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -409,6 +410,7 @@ CREATE TABLE `OrderItems` (
 
 LOCK TABLES `OrderItems` WRITE;
 /*!40000 ALTER TABLE `OrderItems` DISABLE KEYS */;
+INSERT INTO `OrderItems` VALUES (1,'1',6),(1,'3',2),(1,'5',1),(2,'1',3),(2,'2',1),(10,'2',4),(10,'3',1),(11,'2',4),(11,'3',1),(12,'3',2),(13,'3',2),(14,'3',2),(15,'6',1),(15,'1',8);
 /*!40000 ALTER TABLE `OrderItems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,7 +479,7 @@ CREATE TABLE `SalesOrder` (
   PRIMARY KEY (`OrderID`),
   KEY `CustID` (`CustID`),
   CONSTRAINT `SalesOrder_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -486,6 +488,7 @@ CREATE TABLE `SalesOrder` (
 
 LOCK TABLES `SalesOrder` WRITE;
 /*!40000 ALTER TABLE `SalesOrder` DISABLE KEYS */;
+INSERT INTO `SalesOrder` VALUES (1,14,'2012-11-20'),(2,15,'2012-10-24'),(9,15,'2012-11-07'),(10,15,'2012-11-07'),(11,15,'2012-11-07'),(12,15,'2012-11-07'),(13,15,'2012-11-07'),(14,15,'2012-11-07'),(15,15,'2012-11-07');
 /*!40000 ALTER TABLE `SalesOrder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -538,6 +541,7 @@ CREATE TABLE `Shipment` (
 
 LOCK TABLES `Shipment` WRITE;
 /*!40000 ALTER TABLE `Shipment` DISABLE KEYS */;
+INSERT INTO `Shipment` VALUES (1,'2012-12-01','17:00:00','Gryffindor Tower, Hogwarts','Pending',NULL),(2,'2012-11-15','07:00:00','The Shire, Middle Earth','Pending',NULL),(14,'2012-12-23','08:00:00','E-14, OBH, IIIT Hyderabad, Gachibowli','Done','2012-01-01'),(15,'2012-12-15','09:00:00','Hell, Underground','Unread','0000-00-00');
 /*!40000 ALTER TABLE `Shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -639,7 +643,7 @@ CREATE TABLE `Ticket` (
   PRIMARY KEY (`TicketNo`),
   KEY `CustID` (`CustID`),
   CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -648,6 +652,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
+INSERT INTO `Ticket` VALUES (15,14,'Shitty service, crappy toilets','2011-12-31 18:30:00','Processing'),(14,15,'My motherboard burst into flames. I want full refund.','0000-00-00 00:00:00','Unread');
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -671,7 +676,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('admin','5f4dcc3b5aa765d61d8327deb882cf99'),('user1','e6e3be2d833cdf5d9d4c7bc2f85cd098');
+INSERT INTO `User` VALUES ('admin','5f4dcc3b5aa765d61d8327deb882cf99'),('user1','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('ankush','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('mayank','e6e3be2d833cdf5d9d4c7bc2f85cd098');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -735,4 +740,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-06 18:58:47
+-- Dump completed on 2012-11-07  4:18:35

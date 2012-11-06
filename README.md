@@ -8,11 +8,13 @@ Name				Filename		Work
 Customer Registration		registration.php
          Login			login.php
 	 View Items		selectItems.php
-	 Make Sales Order 	???
-	 Provide Feedback	???
+	 Make Sales Order 	newOrder.php	
+	 Provide Feedback	giveFeedback.php	
 	 Make Payment		???
 	 Raise Ticket		raiseTicket.php
-	 View Ticket Status	???
+	 View Ticket Status	ticket.php
+	 View Self Feedbacks	feedback.php
+	 View Shipment		shipment.php
 
 Admin	 View/Add Employee	employee.php
 	 Edit Employee		editEmployee.php
@@ -24,10 +26,10 @@ Admin	 View/Add Employee	employee.php
 	 Edit ASC		editServiceCenter.php
 	 View/Add Brand		brand.php	
 	 Edit Brand		editBrand.php
-	 Ticket Status Modify	???
-	 View All Feedback	???
+	 Ticket Status Modify	editTicket.php
+	 View All Feedback	feedback.php	
 	 Make Supply Order	???
 	 Make Supply Payment	???
-	 Shipping Status Modify	???
+	 Shipping Status Modify	editShipment.php
 
 ASC	 View/Modify Ticekts	editTicket.php

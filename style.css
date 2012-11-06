@@ -529,4 +529,24 @@ a:hover {
 }
 table, tr, td {
 	border-collapse: collapse;
+	margin-bottom: 10px;
+}
+.sales-table td{
+	padding: 5px;
+}
+.order-table td{
+	min-width: 100px;
+	border: 1px solid black;
+	padding: 5px;
+}
+.order-table tr:nth-child(1) {
+	font-weight: bold;
+}
+.order-detail td{
+	min-width: 100px;
+	border: 1px solid black;
+	padding: 5px;
+}
+.order-detail tr td:nth-child(1) {
+	font-weight: bold;
 }

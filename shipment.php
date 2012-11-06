@@ -2,13 +2,13 @@
 <?php 
 	include"essential.php";
 	if($_SESSION['ID']==0)
-		$query="SELECT * FROM Ticket;";
+		$query="SELECT * FROM Shipment;";
 	else{
-		$query="SELECT * FROM Ticket WHERE CustID=".$_SESSION['ID'].";";
+		$query="SELECT * FROM Shipment WHERE CustID=".$_SESSION['ID'].";";
 	}
 ?>
 <div class="post">
-	<h2 class="title"><a href="#">List Tickets </a></h2>
+	<h2 class="title"><a href="#">Shipment Details </a></h2>
 	<div style="clear: both;">&nbsp;</div>
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<br><br><br><br>
@@ -16,11 +16,12 @@
 		<table id="ticketDetails" >
 			<thead>
 				<tr>
-					<th>CustID</th>
-					<th>TicketNo</th>
-					<th>Grievance</th>
-					<th>Date</th>
+					<th>OrderID</th>
+					<th>Preferred Date</th>
+					<th>Preferred Time</th>
+					<th>Address</th>
 					<th>Status</th>
+					<th>Delivery Date</th>
 				</tr>
 			</thead>
 			<?php echo data2Table($query); ?>

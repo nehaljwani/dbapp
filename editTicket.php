@@ -8,11 +8,12 @@
 	}
 ?>
 <div class="post">
-	<h2 class="title"><a href="#">List Tickets </a></h2>
+	<h2 class="title"><a href="#">Update Ticket Status </a></h2>
 	<div style="clear: both;">&nbsp;</div>
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<br><br><br><br>
 	<div class="entry">
+		<form method="POST" action="dbentry.php">
 		<table id="ticketDetails" >
 			<thead>
 				<tr>
@@ -21,10 +22,13 @@
 					<th>Grievance</th>
 					<th>Date</th>
 					<th>Status</th>
+					<th>New Status</th>
 				</tr>
 			</thead>
-			<?php echo data2Table($query); ?>
+			<?php echo getTickets($query); ?>
 		</table>
+		<input type="Submit" value="Apply">
+		</form>
 	</div>
 </div>
 <?php include_once('footer.php'); ?>

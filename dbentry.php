@@ -45,7 +45,19 @@ else if($referer=='login.php'){
 	if($result['Password']==MD5($_POST['Password'])){
 		echo "Login Successfull. Redirecting...";
 		$_SESSION['Username']=$_POST['Username'];
+		$result = execute("select CustID from Customer where Username = \"{$_POST['Username']}\"");
+		if(mysql_num_rows($result)){
+			$resArray = mysql_fetch_row($result);
+			$res = $resArray[0];
+			$_SESSION['ID']=(int)$res;
+		}
+		else{
+			$_SESSION['ID']=0;
+		}
 		header("Refresh: 2; URL={$referer}");
+	}
+	else{
+		echo "Login unsuccessful";
 	}
 }
 else if($referer=='employee.php'){
@@ -236,5 +248,82 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editBrand.php')){
 		echo $query."<br>";
 		execute($query);
 	}
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'newOrder.php')){
+	$maxItems = 5;
+	print_r($_POST);
+	$result = execute("SELECT max(OrderID) from SalesOrder");
+	$Order = mysql_fetch_row($result);
+	$OrderID = (int)$Order[0];
+	$OrderID++;
+	echo $OrderID;
+	if($_SESSION['ID'] == 0){
+		echo "Invalid stuff";
+		header("Location: index.php");
+	}
+	$ID = $_SESSION['ID'];
+	$date = date('Y-m-d', time());
+	echo $date;
+
+	$query = "insert into SalesOrder(CustID, Date) values($ID, \"$date\")";
+	execute($query);
+	for($i = 1; $i <= $maxItems; $i++){
+		if($_POST['item-'.$i] != ""){
+			if($_POST['quantity-'.$i] > 0){
+				$item = $_POST['item-'.$i];
+				$quantity = $_POST['quantity-'.$i];
+				echo "Yo".$item."Yo".$quantity;
+				$subquery = "insert into OrderItems values({$OrderID}, {$item}, $quantity)";
+				echo $subquery."\n";
+				execute($subquery);
+			}
+		}
+	}
+	$query = "insert into Shipment values({$OrderID}, \"{$_POST['date']}\", \"{$_POST['time']}\", \"{$_POST['address']}\", \"Processing\", NULL)";
+	echo $query;
+	execute($query);
+	header("Location: index.php");
+
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'giveFeedback.php')){
+	$query="INSERT INTO Feedback(CustID,OrderID,TicketNo,Feedback,Rating) VALUES(
+		'".$_SESSION['ID']."',
+		'".$_POST['OrderID']."',
+		'".$_POST['TicketNo']."',
+		'".$_POST['Feedback']."',
+		'".$_POST['Rating']."'
+	);";
+	if(!execute($query)){
+		echo "Feedback coudn't be submitted! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+	else{
+		echo "Feedback submitted successfully! Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'editTicket.php')){
+	$fields=array_keys($_POST);
+	foreach($fields as $field){
+		$idStatus=(explode(',',$field));
+		$query="UPDATE Ticket SET Status='".$_POST[$field]."' WHERE TicketNo=".$idStatus[0].";";
+		execute($query);
+	}
+	echo "Ticket status updates successfully! Redirecting...";
+	header("Refresh: 2; URL={$referer}");
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'editShipment.php')){
+	$fields=array_keys($_POST);
+	print_r($_POST);
+	foreach($fields as $field){
+		$idStatus=(explode(',',$field));
+		if($idStatus[1]=='Status')
+			$query="UPDATE Shipment SET Status='".$_POST[$field]."' WHERE OrderID=".$idStatus[0].";";
+		else
+			$query="UPDATE Shipment SET DeliveryDate='".$_POST[$field]."' WHERE OrderID=".$idStatus[0].";";
+		execute($query);
+	}
+	echo "Ticket status updates successfully! Redirecting...";
+	header("Refresh: 2; URL={$referer}");
 }
 ?>

@@ -203,5 +203,88 @@ function data2Table($query){
 	}   
 	return $string;
 }
+function getShipment($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td>".$row."</td>";
+		}
+		$string.="<td><select name='".$rows['TicketNo'].",Status'>
+			<option value='Unread'>Unread </option>
+			<option value='Processing'>Processing </option>
+			<option value='Done'> Done</option>
+			</select></td></tr>";
+		$string.="<td><input type='date' name='".$rows['TicketNo'].",DeliveryDate' value='NULL' size=10></td></tr>";
+	}   
+	return $string;
+}
+function itemsOptionList(){
+	dbconnect();
+	$result = execute("select ID, Brand, Name from Items order by Brand, Name;");
+	while($row = mysql_fetch_assoc($result)){
+		echo "<option value='".$row['ID']."'>".$row['Brand']." ".$row['Name']."</option>\n";
+	}
+}
+
+function getMyOrders(){
+	dbconnect();
+	$result=execute("SELECT DISTINCT OrderID FROM SalesOrder WHERE CustID='".$_SESSION['ID']."'");
+	while($row = mysql_fetch_assoc($result)){
+		echo "<option value='".$row['OrderID']."'>".$row['OrderID']."</option>\n";
+	}
+}
+function getMyTickets(){
+	dbconnect();
+	$result=execute("SELECT DISTINCT TicketNo FROM Ticket WHERE CustID='".$_SESSION['ID']."'");
+	while($row = mysql_fetch_assoc($result)){
+		echo "<option value='".$row['TicketNo']."'>".$row['TicketNo']."</option>\n";
+	}
+}
+function getTickets($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td>".$row."</td>";
+		}
+		$string.="<td><select name='".$rows['TicketNo'].",Status'>
+			<option value='Unread'>Unread </option>
+			<option value='Processing'>Processing </option>
+			<option value='Done'> Done</option>
+			</select></td></tr>";
+	}   
+	return $string;
+}
+
+function quantityList($maxNumber){
+	for($i=0;$i<=$maxNumber;$i++){
+		echo "<option value='".$i."'>".$i."</option>\n";
+	}
+}
+function orderTable($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		$count=0;
+		foreach($rows as $row){
+			if($count==0){
+				$string.="<td><a href='?id=".$row."'>".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
+		}
+		$string.="</tr>";
+	}   
+	return $string;
+}
 
 ?>
