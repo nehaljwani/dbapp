@@ -1,13 +1,14 @@
 <?php
-
 include "essential.php";
 dbconnect();
+
+session_start();
 
 $referer = end((explode('/', $_SERVER['HTTP_REFERER'])));
 
 if($referer=='registration.php'){
-	$query="INSERT INTO User(UserName, Password) VALUES(
-		'".$_POST['UserName']."',
+	$query="INSERT INTO User(Username, Password) VALUES(
+		'".$_POST['Username']."',
 		'".MD5($_POST['Password'])."'
 	);";
 	if(!execute($query)){
@@ -15,11 +16,12 @@ if($referer=='registration.php'){
 		sleep(2);
 		header('Location: registration.php');
 	}
-	$query="INSERT INTO Customer(Name, Address, Email, Phone) VALUES(
+	$query="INSERT INTO Customer(Name, Address, Email, Phone, Username) VALUES(
 		'".$_POST['Name']."',
 		'".$_POST['Address']."',
 		'".$_POST['Email']."',
-		'".$_POST['Phone']."'
+		'".$_POST['Phone']."',
+		'".$_POST['Username']."'
 	);";
 	if(execute($query)){
 		echo 'Registration Successful! Redirecting to Login Page ...';
@@ -33,6 +35,16 @@ else if($referer=='raiseTicket.php'){
 	);";
 	if(execute($query)){
 		echo "Successfully submitted. Redirecting...";
+		header("Refresh: 2; URL={$referer}");
+	}
+}
+else if($referer=='login.php'){
+	$query="SELECT Password FROM User WHERE Username='".$_POST['Username']."';";
+	$result=mysql_fetch_assoc(execute($query));
+
+	if($result['Password']==MD5($_POST['Password'])){
+		echo "Login Successfull. Redirecting...";
+		$_SESSION['Username']=$_POST['Username'];
 		header("Refresh: 2; URL={$referer}");
 	}
 }

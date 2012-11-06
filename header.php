@@ -43,3 +43,7 @@ Released   : 20120915
 	<div id="page">
 		<div id="content">
 			<!-- Break 1 -->
+<?php session_start();
+	if(isset($_SESSION['Username']))
+		echo "Greetings, ".$_SESSION['Username']."!";
+?>

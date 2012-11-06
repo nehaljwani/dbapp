@@ -113,6 +113,20 @@ function generateBrand($query){
 	return $string;
 }
 
+function generateTicket($query){
+	dbconnect();
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		$string.="<tr>";
+		foreach($rows as $row){
+			$string.="<td><a href=ediTicket.php?TicketNo='".$rows['TicketNo']."'>".$row."</a></td>";
+		}
+		$string.="</tr>";
+	}   
+	return $string;
+}
+
 function getEmployeeDetails($query){
 	dbconnect();
 	$result=execute($query);

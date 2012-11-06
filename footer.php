@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 			<!-- Break 2 -->
 			<div style="clear: both;">&nbsp;</div>
 		</div>
@@ -7,7 +8,12 @@
 				<li>
 					<h2>Categories</h2>
 					<ul>
-						<li><a href="login.php">Login</a></li>
+						<?php
+							if(!isset($_SESSION['Username']))
+								echo "<li><a href=\"login.php\">Login</a></li>";
+							else
+								echo "<li><a href=\"logout.php\">Logout</a></li>";
+						?>
 						<li><a href="registration.php">Register</a></li>
 						<li><a href="ticketItems.php">View tickets</a></li>
 						<li><a href="customerItems.php">View Customers</a></li>

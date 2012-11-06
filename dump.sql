@@ -106,8 +106,9 @@ CREATE TABLE `Customer` (
   `Email` varchar(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `Phone` varchar(15) NOT NULL,
+  `Username` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +117,7 @@ CREATE TABLE `Customer` (
 
 LOCK TABLES `Customer` WRITE;
 /*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (5,'OBH','kkiddu@yahoo.com','Ankush Jain','123456'),(6,'Hogwarts','harry@hogwarts.edu','Harry Potter','555555'),(7,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723'),(8,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723'),(9,'11213','monkey@jungle.com','Monkey','90129723'),(10,'11213','donkey@in.com','Donkey','90129723'),(11,'11213','jungle@in.com','Jungleq','90129723'),(12,'','','','');
+INSERT INTO `Customer` VALUES (14,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723','user1');
 /*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,7 +648,6 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (5,4,'My CPU gets too hot','0000-00-00 00:00:00','Unread'),(5,5,'My CPU gets too hot','0000-00-00 00:00:00','Unread'),(5,6,'Foo bar','2012-11-01 15:10:30','Unread'),(5,7,'Boo baa','2012-11-01 15:11:33','Unread'),(5,8,'Test test','2012-11-01 15:12:16','Unread'),(5,9,'Whoosh','2012-11-01 15:22:59','Unread'),(5,12,'trackpad','2012-11-05 18:00:14','Unread'),(5,13,'','2012-11-05 18:00:39','Unread');
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -659,10 +659,9 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
-  `UserName` varchar(20) NOT NULL,
-  `Password` varchar(20) NOT NULL,
-  `Privilege` int(1) DEFAULT '0',
-  UNIQUE KEY `UserName` (`UserName`)
+  `Username` varchar(20) DEFAULT NULL,
+  `Password` varchar(50) DEFAULT NULL,
+  UNIQUE KEY `UserName` (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -672,7 +671,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('deepesh','bf76b73579ee889af881',0),('deepesh2','8e755aa8fc8d51bd2877',0),('donkey','d0763edaa9d9bd2a9516',0),('harry','3b87c97d15e8eb11e51a',0),('jungle','b9c3a255a10d7e0db510',0),('monkey','9443b0fceb8c03b6a514',0),('user1@students.iiit.','24c9e15e52afc47c225b',0);
+INSERT INTO `User` VALUES ('admin','5f4dcc3b5aa765d61d8327deb882cf99'),('user1','e6e3be2d833cdf5d9d4c7bc2f85cd098');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -736,4 +735,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-06  2:30:31
+-- Dump completed on 2012-11-06 18:58:47

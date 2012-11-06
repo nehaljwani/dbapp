@@ -24,7 +24,7 @@
 				</tr>
 				<tr>
 					<td>Username</td>
-					<td><input type="text" name="UserName"></td>
+					<td><input type="text" name="Username"></td>
 				</tr>
 				<tr>
 					<td>Password</td>
