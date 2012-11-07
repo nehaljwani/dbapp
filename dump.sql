@@ -29,7 +29,7 @@ CREATE TABLE `AuthorizedSC` (
   `Phone` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`ASCID`),
   KEY `Brand` (`Brand`),
-  CONSTRAINT `AuthorizedSC_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`)
+  CONSTRAINT `AuthorizedSC_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,7 +54,7 @@ CREATE TABLE `AuthorizedService` (
   `ASCID` int(10) DEFAULT NULL,
   `ServicesSupported` varchar(500) DEFAULT NULL,
   KEY `ASCID` (`ASCID`),
-  CONSTRAINT `AuthorizedService_ibfk_1` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`)
+  CONSTRAINT `AuthorizedService_ibfk_1` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -132,7 +132,7 @@ CREATE TABLE `Driver` (
   `EmpID` int(10) NOT NULL DEFAULT '0',
   `LicenseNo` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`EmpID`),
-  CONSTRAINT `Driver_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`)
+  CONSTRAINT `Driver_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -187,7 +187,7 @@ CREATE TABLE `Engineer` (
   `EmpID` int(10) NOT NULL DEFAULT '0',
   `Specialization` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`EmpID`),
-  CONSTRAINT `Engineer_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`)
+  CONSTRAINT `Engineer_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -215,7 +215,7 @@ CREATE TABLE `Feedback` (
   `Feedback` varchar(1000) DEFAULT NULL,
   `Rating` int(5) DEFAULT NULL,
   KEY `CustID` (`CustID`),
-  CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
+  CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -244,8 +244,8 @@ CREATE TABLE `Forwarding` (
   `Status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`TicketNo`),
   KEY `ASCID` (`ASCID`),
-  CONSTRAINT `Forwarding_ibfk_1` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`),
-  CONSTRAINT `Forwarding_ibfk_2` FOREIGN KEY (`TicketNo`) REFERENCES `Ticket` (`TicketNo`)
+  CONSTRAINT `Forwarding_ibfk_4` FOREIGN KEY (`TicketNo`) REFERENCES `Ticket` (`TicketNo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Forwarding_ibfk_3` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -269,8 +269,7 @@ CREATE TABLE `HDD` (
   `ID` int(10) NOT NULL DEFAULT '0',
   `Size` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `HDD_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`),
-  CONSTRAINT `HDD_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
+  CONSTRAINT `HDD_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -300,7 +299,7 @@ CREATE TABLE `Items` (
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Brand` (`Brand`),
-  CONSTRAINT `Items_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`)
+  CONSTRAINT `Items_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -325,7 +324,7 @@ CREATE TABLE `Manager` (
   `EmpID` int(10) NOT NULL DEFAULT '0',
   `Department` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`EmpID`),
-  CONSTRAINT `Manager_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`)
+  CONSTRAINT `Manager_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -351,7 +350,7 @@ CREATE TABLE `Monitor` (
   `Resolution` varchar(20) DEFAULT NULL,
   `ScreenSize` int(4) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `Monitor_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
+  CONSTRAINT `Monitor_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -375,7 +374,7 @@ CREATE TABLE `Motherboard` (
   `ID` int(10) NOT NULL DEFAULT '0',
   `Chipset` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `Motherboard_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
+  CONSTRAINT `Motherboard_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -401,7 +400,7 @@ CREATE TABLE `OrderItems` (
   `Item` varchar(100) DEFAULT NULL,
   `Quantity` int(10) DEFAULT NULL,
   KEY `OrderID` (`OrderID`),
-  CONSTRAINT `OrderItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+  CONSTRAINT `OrderItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -428,7 +427,7 @@ CREATE TABLE `Payment` (
   `Amount` int(10) DEFAULT NULL,
   `PaymentMethod` varchar(20) DEFAULT NULL,
   KEY `OrderID` (`OrderID`),
-  CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+  CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -454,7 +453,7 @@ CREATE TABLE `Processor` (
   `Frequency` int(5) DEFAULT NULL,
   `Cores` int(3) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `Processor_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
+  CONSTRAINT `Processor_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -480,7 +479,7 @@ CREATE TABLE `RAM` (
   `Frequency` int(5) DEFAULT NULL,
   `Size` int(5) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `RAM_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`)
+  CONSTRAINT `RAM_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -506,7 +505,7 @@ CREATE TABLE `SalesOrder` (
   `Date` date DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `CustID` (`CustID`),
-  CONSTRAINT `SalesOrder_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
+  CONSTRAINT `SalesOrder_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -531,7 +530,7 @@ CREATE TABLE `SalesPerson` (
   `EmpID` int(10) NOT NULL DEFAULT '0',
   `SalesNo` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`EmpID`),
-  CONSTRAINT `SalesPerson_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`)
+  CONSTRAINT `SalesPerson_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -559,7 +558,7 @@ CREATE TABLE `Shipment` (
   `Status` varchar(200) DEFAULT NULL,
   `DeliveryDate` date DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
-  CONSTRAINT `Shipment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+  CONSTRAINT `Shipment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -586,7 +585,7 @@ CREATE TABLE `SupplyItems` (
   `Quantity` int(5) DEFAULT NULL,
   `RatePerItem` int(8) DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
-  CONSTRAINT `SupplyItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+  CONSTRAINT `SupplyItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -612,8 +611,8 @@ CREATE TABLE `SupplyOrder` (
   `Date` date DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `VendID` (`VendID`),
-  CONSTRAINT `SupplyOrder_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`),
-  CONSTRAINT `SupplyOrder_ibfk_2` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`)
+  CONSTRAINT `SupplyOrder_ibfk_3` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SupplyOrder_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -641,8 +640,8 @@ CREATE TABLE `SupplyReceipt` (
   `PaymentMethod` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `VendID` (`VendID`),
-  CONSTRAINT `SupplyReceipt_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`),
-  CONSTRAINT `SupplyReceipt_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+  CONSTRAINT `SupplyReceipt_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SupplyReceipt_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -670,7 +669,7 @@ CREATE TABLE `Ticket` (
   `Status` varchar(200) DEFAULT 'Unread',
   PRIMARY KEY (`TicketNo`),
   KEY `CustID` (`CustID`),
-  CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
+  CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -745,7 +744,7 @@ CREATE TABLE `VendorBrands` (
   `VendID` int(10) NOT NULL DEFAULT '0',
   `Brands` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`VendID`),
-  CONSTRAINT `VendorBrands_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`)
+  CONSTRAINT `VendorBrands_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -768,4 +767,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-07 17:41:52
+-- Dump completed on 2012-11-07 18:27:47
