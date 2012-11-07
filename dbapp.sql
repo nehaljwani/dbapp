@@ -30,7 +30,7 @@ CREATE TABLE `AuthorizedSC` (
   PRIMARY KEY (`ASCID`),
   KEY `Brand` (`Brand`),
   CONSTRAINT `AuthorizedSC_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `AuthorizedSC` (
 
 LOCK TABLES `AuthorizedSC` WRITE;
 /*!40000 ALTER TABLE `AuthorizedSC` DISABLE KEYS */;
-INSERT INTO `AuthorizedSC` VALUES (1,'Toshiba','Toshiba America Information Systems, Inc. Digital Products Division 9740 Irvine Boulevard Irvine, CA 92618-1697','(949) 583-3000');
+INSERT INTO `AuthorizedSC` VALUES (1,'Toshiba','Toshiba America Information Systems, Inc. Digital Products Division 9740 Irvine Boulevard Irvine, CA 92618-1697','(949) 583-3000'),(3,'AMD','No.11, Chambers @ Mantri, Richmond Road , Bengaluru /Bangalore','(80) 30924700 ,');
 /*!40000 ALTER TABLE `AuthorizedSC` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `AuthorizedService` (
 
 LOCK TABLES `AuthorizedService` WRITE;
 /*!40000 ALTER TABLE `AuthorizedService` DISABLE KEYS */;
-INSERT INTO `AuthorizedService` VALUES (1,'X,Y,Z');
+INSERT INTO `AuthorizedService` VALUES (1,'X,Y,Z'),(3,'Repair, Replacement');
 /*!40000 ALTER TABLE `AuthorizedService` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `Brand` (
 
 LOCK TABLES `Brand` WRITE;
 /*!40000 ALTER TABLE `Brand` DISABLE KEYS */;
-INSERT INTO `Brand` VALUES ('AMD','Description7',4),('Dell','Description5',3),('Intel','Motherboard D845GVSR',4),('LG','Life is Gud',7),('Microsoft','Description2',5),('Seagate','Description6',6),('Sony','Description3',4),('Toshiba','Description19',6),('Tp-Link','Description4',4);
+INSERT INTO `Brand` VALUES ('Acer','Indian ',6),('AMD','Description17',4),('Dell','Description5',3),('Intel','Motherboard D845GVSR',4),('LG','Life is Gud',7),('Microsoft','Description2',5),('Seagate','Description6',6),('Sony','Description3',4),('Toshiba','Description19',6),('Tp-Link','Description4',4);
 /*!40000 ALTER TABLE `Brand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +108,7 @@ CREATE TABLE `Customer` (
   `Phone` varchar(15) NOT NULL,
   `Username` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `Customer` (
 
 LOCK TABLES `Customer` WRITE;
 /*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (14,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723','user1'),(15,'#113, Patiala, Punjab','anku.94@gmail.com','Ankush','9052488912','ankush'),(16,'#304, Muzzaffarnagar, Uttar Pradesh','mayankrocks.1993@gmail.com','Mayank','9052400628','mayank');
+INSERT INTO `Customer` VALUES (14,'#1304, Delhi','deepesh.jain@idiots.com','Deepesh','90129723','user1'),(15,'#113, Patiala, Punjab','anku.94@gmail.com','Ankush','9052488912','ankush'),(16,'#304, Muzzaffarnagar, Uttar Pradesh','mayankrocks.1993@gmail.com','Mayank','9052400628','mayank'),(17,'#909, GMCH, Chandigarh','amishwani@gmail.com','Amish','8800850083','amish'),(18,'#145, Jail Road, KhaiGali, Hyderabad','akansha@gmail.com','Akansha','01722638971','akansha'),(19,'#1304, Delhi','new@gmail.com','new','90129723','new');
 /*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `Employee` (
   `PAN` char(10) DEFAULT NULL,
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmpID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `Employee` (
 
 LOCK TABLES `Employee` WRITE;
 /*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABCDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver'),(3,'Nehal','1993-08-06','#2008, Sabzi Street, Mumbai','2012-11-13',50000,'ABHNJ0493L','Manager'),(4,'Ankush Jain','1994-02-28','Near Easyday, Thapar College, Patiala','2010-02-01',1000000,'ABCDPQ1234','Engineer');
+INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABKDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver'),(3,'Nehal','1993-08-06','#2008, Sabzi Street, Mumbai','2012-11-13',50000,'ABHNJ0493L','Manager'),(4,'Ankush Jain','1994-02-28','Near Easyday, Thapar College, Patiala','2010-02-01',1000000,'ABCDPQ1234','Engineer'),(6,'Manveer Singh','1991-01-01','#505, Sabzi Market Road, Bathinda','2012-11-08',15000,'APLOR21022','SalesPerson');
 /*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +300,7 @@ CREATE TABLE `Items` (
   PRIMARY KEY (`ID`),
   KEY `Brand` (`Brand`),
   CONSTRAINT `Items_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +309,7 @@ CREATE TABLE `Items` (
 
 LOCK TABLES `Items` WRITE;
 /*!40000 ALTER TABLE `Items` DISABLE KEYS */;
-INSERT INTO `Items` VALUES (1,'Desc1','Intel','8D6DASD4',15000,'Motherboard'),(2,'Desc2.5','Intel','KD45ASD4',25000,'Motherboard'),(3,'Desc3','AMD','A-15ASD4',17000,'Motherboard'),(5,'Occupies less volume and is portable.','Toshiba','Toshiba Canvio Basic 3.0 1 ',4999,'HDD'),(6,' 4 Cores, 2 MB (L2), 6 MB (L3), 45 nm Manufacturing Process','AMD','AM3 Athlon II 260 Processor',6784,'Processor');
+INSERT INTO `Items` VALUES (1,'Desc1','Intel','8D6DASD4',15000,'Motherboard'),(2,'Desc2.5','Intel','KD45ASD4',25000,'Motherboard'),(3,'Desc3','AMD','A-15ASD4',17000,'Motherboard'),(5,'Occupies less volume and is portable.','Toshiba','Toshiba Canvio Basic 3.0 1 ',4999,'HDD'),(6,' 4 Cores, 2 MB (L2), 6 MB (L3), 45 nm Manufacturing Process','AMD','AM3 Athlon II 260 Processor',6784,'Processor'),(11,'Super Duper Fast!','AMD','D845GVSR',50000,'Processor'),(12,'Nice Res!','LG','Plasma',25000,'Monitor');
 /*!40000 ALTER TABLE `Items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,6 +360,7 @@ CREATE TABLE `Monitor` (
 
 LOCK TABLES `Monitor` WRITE;
 /*!40000 ALTER TABLE `Monitor` DISABLE KEYS */;
+INSERT INTO `Monitor` VALUES (12,'1920x1800',17);
 /*!40000 ALTER TABLE `Monitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,7 +411,7 @@ CREATE TABLE `OrderItems` (
 
 LOCK TABLES `OrderItems` WRITE;
 /*!40000 ALTER TABLE `OrderItems` DISABLE KEYS */;
-INSERT INTO `OrderItems` VALUES (1,'1',6),(1,'3',2),(1,'5',1),(2,'1',3),(2,'2',1),(10,'2',4),(10,'3',1),(11,'2',4),(11,'3',1),(12,'3',2),(13,'3',2),(14,'3',2),(15,'6',1),(15,'1',8),(16,'2',3);
+INSERT INTO `OrderItems` VALUES (1,'1',6),(1,'3',2),(1,'5',1),(2,'1',3),(2,'2',1),(10,'2',4),(10,'3',1),(11,'2',4),(11,'3',1),(12,'3',2),(13,'3',2),(14,'3',2),(15,'6',1),(15,'1',8),(16,'2',3),(17,'1',6);
 /*!40000 ALTER TABLE `OrderItems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,7 +438,7 @@ CREATE TABLE `Payment` (
 
 LOCK TABLES `Payment` WRITE;
 /*!40000 ALTER TABLE `Payment` DISABLE KEYS */;
-INSERT INTO `Payment` VALUES (9,'First payment',1000,'cheque');
+INSERT INTO `Payment` VALUES (9,'First payment',1000,'cheque'),(16,'True',15000,'cash');
 /*!40000 ALTER TABLE `Payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,7 +464,7 @@ CREATE TABLE `Processor` (
 
 LOCK TABLES `Processor` WRITE;
 /*!40000 ALTER TABLE `Processor` DISABLE KEYS */;
-INSERT INTO `Processor` VALUES (6,3,2);
+INSERT INTO `Processor` VALUES (6,3,2),(11,10,12);
 /*!40000 ALTER TABLE `Processor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -506,7 +507,7 @@ CREATE TABLE `SalesOrder` (
   PRIMARY KEY (`OrderID`),
   KEY `CustID` (`CustID`),
   CONSTRAINT `SalesOrder_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -515,7 +516,7 @@ CREATE TABLE `SalesOrder` (
 
 LOCK TABLES `SalesOrder` WRITE;
 /*!40000 ALTER TABLE `SalesOrder` DISABLE KEYS */;
-INSERT INTO `SalesOrder` VALUES (1,14,'2012-11-20'),(2,15,'2012-10-24'),(9,15,'2012-11-07'),(10,15,'2012-11-07'),(11,15,'2012-11-07'),(12,15,'2012-11-07'),(13,15,'2012-11-07'),(14,15,'2012-11-07'),(15,15,'2012-11-07'),(16,16,'2012-11-07');
+INSERT INTO `SalesOrder` VALUES (1,14,'2012-11-20'),(2,15,'2012-10-24'),(9,15,'2012-11-07'),(10,15,'2012-11-07'),(11,15,'2012-11-07'),(12,15,'2012-11-07'),(13,15,'2012-11-07'),(14,15,'2012-11-07'),(15,15,'2012-11-07'),(16,16,'2012-11-07'),(17,16,'2012-11-08');
 /*!40000 ALTER TABLE `SalesOrder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -540,6 +541,7 @@ CREATE TABLE `SalesPerson` (
 
 LOCK TABLES `SalesPerson` WRITE;
 /*!40000 ALTER TABLE `SalesPerson` DISABLE KEYS */;
+INSERT INTO `SalesPerson` VALUES (6,'');
 /*!40000 ALTER TABLE `SalesPerson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -568,7 +570,7 @@ CREATE TABLE `Shipment` (
 
 LOCK TABLES `Shipment` WRITE;
 /*!40000 ALTER TABLE `Shipment` DISABLE KEYS */;
-INSERT INTO `Shipment` VALUES (1,'2012-12-01','17:00:00','Gryffindor Tower, Hogwarts','Pending',NULL),(2,'2012-11-15','07:00:00','The Shire, Middle Earth','Pending',NULL),(14,'2012-12-23','08:00:00','E-14, OBH, IIIT Hyderabad, Gachibowli','Done','2012-01-01'),(15,'2012-12-15','09:00:00','Hell, Underground','Unread','0000-00-00'),(16,'2012-12-15','17:00:00','#1305, Sec31-C, Chandigarh','Processing',NULL);
+INSERT INTO `Shipment` VALUES (1,'2012-12-01','17:00:00','Gryffindor Tower, Hogwarts','Processing','0000-00-00'),(2,'2012-11-15','07:00:00','The Shire, Middle Earth','Unread','0000-00-00'),(14,'2012-12-23','08:00:00','E-14, OBH, IIIT Hyderabad, Gachibowli','Unread','0000-00-00'),(15,'2012-12-15','09:00:00','Hell, Underground','Unread','0000-00-00'),(16,'2012-12-15','17:00:00','#1305, Sec31-C, Chandigarh','Unread','0000-00-00'),(17,'2013-01-01','17:00:00','#1305, Sec31-C, Chandigarh','Unread','0000-00-00');
 /*!40000 ALTER TABLE `Shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -670,7 +672,7 @@ CREATE TABLE `Ticket` (
   PRIMARY KEY (`TicketNo`),
   KEY `CustID` (`CustID`),
   CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -679,7 +681,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (15,14,'Shitty service, crappy toilets','2011-12-31 18:30:00','Processing'),(14,15,'My motherboard burst into flames. I want full refund.','0000-00-00 00:00:00','Unread');
+INSERT INTO `Ticket` VALUES (15,14,'Shitty service, crappy toilets','2011-12-31 18:30:00','Processing'),(14,15,'My motherboard burst into flames. I want full refund.','0000-00-00 00:00:00','Unread'),(16,16,'Monitor is not turning on properly.','2012-11-07 19:30:30','Unread');
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -703,7 +705,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('admin','5f4dcc3b5aa765d61d8327deb882cf99'),('user1','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('ankush','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('mayank','e6e3be2d833cdf5d9d4c7bc2f85cd098');
+INSERT INTO `User` VALUES ('admin','5f4dcc3b5aa765d61d8327deb882cf99'),('user1','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('ankush','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('mayank','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('amish','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('akansha','e6e3be2d833cdf5d9d4c7bc2f85cd098'),('new','e6e3be2d833cdf5d9d4c7bc2f85cd098');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -716,11 +718,11 @@ DROP TABLE IF EXISTS `Vendor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Vendor` (
   `VendID` int(10) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(100) DEFAULT NULL,
+  `Name` varchar(100) NOT NULL,
   `Address` varchar(500) DEFAULT NULL,
   `Phone` int(15) DEFAULT NULL,
   PRIMARY KEY (`VendID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -729,7 +731,7 @@ CREATE TABLE `Vendor` (
 
 LOCK TABLES `Vendor` WRITE;
 /*!40000 ALTER TABLE `Vendor` DISABLE KEYS */;
-INSERT INTO `Vendor` VALUES (1,'James Shaw Hadden','#508-B, Sacred Road, Market Area, Downhatten',129);
+INSERT INTO `Vendor` VALUES (1,'James Shaw Hadden','#508-B, Sacred Road, Market Area, Downhatten',129),(6,'McLaren S','#908, Lingampally, Hyderabad, Andhra Pradesh',2147483647);
 /*!40000 ALTER TABLE `Vendor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -754,7 +756,7 @@ CREATE TABLE `VendorBrands` (
 
 LOCK TABLES `VendorBrands` WRITE;
 /*!40000 ALTER TABLE `VendorBrands` DISABLE KEYS */;
-INSERT INTO `VendorBrands` VALUES (1,'Samsung, LG');
+INSERT INTO `VendorBrands` VALUES (1,'Samsung, LG'),(6,'Samsung, Dell, HP');
 /*!40000 ALTER TABLE `VendorBrands` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -767,4 +769,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-07 18:27:47
+-- Dump completed on 2012-11-08  3:05:58
