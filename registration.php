@@ -8,27 +8,27 @@
 			<table id="entry">
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="Name"></td>
+					<td><input type="text" name="Name" required></td>
 				</tr>
 				<tr>
 					<td>Address</td>
-					<td><input type="text" name="Address"></td>
+					<td><input type="text" name="Address" required></td>
 				</tr>
 				<tr>
 					<td>Email Id</td>
-					<td><input type="text" name="Email"></td>
+					<td><input type="text" name="Email" required></td>
 				</tr>
 				<tr>
 					<td>Contact Number</td>
-					<td><input type="text" name="Phone"></td>
+					<td><input type="text" name="Phone" required></td>
 				</tr>
 				<tr>
 					<td>Username</td>
-					<td><input type="text" name="Username"></td>
+					<td><input type="text" name="Username" required></td>
 				</tr>
 				<tr>
 					<td>Password</td>
-					<td><input type="password" name="Password"></td>
+					<td><input type="password" name="Password" required></td>
 				</tr>
 			</table>		
 			<input type="submit" class="more">

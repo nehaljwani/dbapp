@@ -11,7 +11,7 @@
 <?php if($_SESSION['ID']==0){
 	?>
 	<p class="meta">
-	<span class="date">Click to edit tde details of any employee!</span>
+	<span class="date">Click to edit the details of any employee!</span>
 	</p>
 	<button type="button" id='view' class="more">View Employees</button>
 	<button type="button" id='add' class="more">Add Employee</button>
@@ -51,23 +51,23 @@
 				</tr>
 				<tr>
 					<td>DOB</td>
-					<td><input type="date" name="DOB"></td>
+					<td><input type="date" name="DOB" required></td>
 				</tr>
 				<tr>
 					<td>Address</td>
-					<td><input type="text" name="Address"></td>
+					<td><input type="text" name="Address" required></td>
 				</tr>
 				<tr>
 					<td>DOJ</td>
-					<td><input type="date" name="DOJ"></td>
+					<td><input type="date" name="DOJ" required></td>
 				</tr>
 				<tr>
 					<td>Salary</td>
-					<td><input type="text" name="Salary"></td>
+					<td><input type="text" name="Salary" required></td>
 				</tr>
 				<tr>
 					<td>PAN</td>
-					<td><input type="text" name="PAN"></td>
+					<td><input type="text" name="PAN" required></td>
 				</tr>
 				<tr>
 					<td>Category</td>

@@ -20,7 +20,6 @@ else{
 <?php echo data2Table($query); ?>
 </table>
 	
-		<p class="links"><a href="#" class="more">Read More</a><a href="#" title="b0x" class="comments">Comments</a></p>
 	</div>
 </div>
 <?php include_once('footer.php'); ?>

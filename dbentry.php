@@ -1,20 +1,18 @@
 <?php
 include "essential.php";
 dbconnect();
-
 session_start();
 
 $referer = end((explode('/', $_SERVER['HTTP_REFERER'])));
 
-if($referer=='registration.php'){
+if(strpos($_SERVER['HTTP_REFERER'],'registration.php')){
 	$query="INSERT INTO User(Username, Password) VALUES(
 		'".$_POST['Username']."',
 		'".MD5($_POST['Password'])."'
 	);";
 	if(!execute($query)){
-		echo 'Registration UnSuccessful! Redirecting to Registration Page ...';
-		sleep(2);
-		header('Location: registration.php');
+		$msg='Registration Unsuccessful!';
+		header("Location: registration.php?msg={$msg}");
 	}
 	$query="INSERT INTO Customer(Name, Address, Email, Phone, Username) VALUES(
 		'".$_POST['Name']."',
@@ -24,52 +22,57 @@ if($referer=='registration.php'){
 		'".$_POST['Username']."'
 	);";
 	if(execute($query)){
-		echo 'Registration Successful! Redirecting to Login Page ...';
-		header('Refresh: 2; URL=login.php');
+		$msg='Registration Successful!';
+		header("Location: index.php?msg={$msg}");
 	}
 }
-else if($referer=='raiseTicket.php'){
+else if(strpos($_SERVER['HTTP_REFERER'],'raiseTicket.php')){
 	$query = "INSERT INTO Ticket(CustID, Grievance)  VALUES(
 		'".$_POST['ID']."',
 		'".$_POST['Grievance']."'
 	);";
 	if(execute($query)){
-		echo "Successfully submitted. Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+		$msg="Ticket raised successfully!";
+		header("Location:index.php?msg=${msg}");
+	}
+	else{
+		$msg="There is some glitch. Please try again!";
+		header("Location:index.php?msg=${msg}");
 	}
 }
-else if($referer=='login.php'){
+else if(strpos($_SERVER['HTTP_REFERER'],'index.php')){
 	$query="SELECT Password FROM User WHERE Username='".$_POST['Username']."';";
 	$result=mysql_fetch_assoc(execute($query));
-
 	if($result['Password']==MD5($_POST['Password'])){
-		echo "Login Successfull. Redirecting...";
+		$msg="Login Successfull!";
 		$_SESSION['Username']=$_POST['Username'];
 		$result = execute("select CustID from Customer where Username = \"{$_POST['Username']}\"");
 		if(mysql_num_rows($result)){
 			$resArray = mysql_fetch_row($result);
 			$res = $resArray[0];
 			$_SESSION['ID']=(int)$res;
+			header("Location: index.php?msg={$msg}");
 		}
 		else{
 			$_SESSION['ID']=0;
+			header("Location: index.php?msg={$msg}");
 		}
-		header("Refresh: 2; URL={$referer}");
 	}
 	else{
-		echo "Login unsuccessful";
+		$msg="Login credentials invalid!";
+		header("Location: index.php?msg={$msg}");
 	}
 }
-else if($referer=='employee.php'){
+else if(strpos($_SERVER['HTTP_REFERER'],'employee.php')){
 	if(isset($_POST['delID'])){
 		$query="DELETE FROM Employee WHERE EmpID='".$_POST['delID']."';";
 		if(execute($query)){
-			echo "Employee deleted successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Employee deleted successfully!";
+			header("Location: employee.php?msg={$msg}");
 		}
 		else{
-			echo "Employee couldn't be deleted! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Oops! Employee couldn't be deleted! Try again";
+			header("Location: employee.php?msg={$msg}");
 		}
 	}
 	else{
@@ -83,49 +86,59 @@ else if($referer=='employee.php'){
 			'".$_POST['Category']."'
 		);";
 		if(!execute($query)){
-			echo "Employee Registration Unsuccessfull! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Employee Registration Unsuccessful! Please try again";
+			header("Location: employee.php?msg=$msg");
 		}
-		print_r($_POST);
 		$EmpID=mysql_fetch_assoc(execute("SELECT EmpID FROM Employee ORDER BY EmpID DESC LIMIT 1;"));
 		$query="INSERT INTO ".$_POST['Category']." VALUES(
 			'".$EmpID['EmpID']."',
 			'".$_POST['Field2']."'
 		);";
 		if(execute($query)){
-			echo "Employee Registration Successfull! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Employee Registration Successfull!";
+			header("Location: index.php?msg={$msg}");
+		}
+		else{
+			$msg="Employee Registration Unsuccessful! Please try again";
+			header("Location: employee.php?msg=$msg");
 		}
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editEmployee.php')){
+	echo "Hi";
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Employee';";
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE Employee SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE EmpID=".$_POST['EmpID'].";";
 		echo $query."<br>";
-		execute($query);
+		if(!execute($query)){
+			$msg="There is some glitch. Please try again.";
+			header("Location: editEmployee.php?msg={$msg}");
+		}
 	}
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='".$_POST['Category']."';";
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE ".$_POST['Category']." SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE EmpID=".$_POST['EmpID'].";";
 		echo $query."<br>";
-		execute($query);
-
+		if(!execute($query)){
+			$msg="There is some glitch. Please try again.";
+			header("Location: editEmployee.php?msg={$msg}");
+		}
 	}
-	header("Location: index.php");
+	$msg="Employee details updated successfully!";
+	header("Location: index.php?msg={$msg}");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'vendor.php')){
 	if(isset($_POST['delID'])){
 		$query="DELETE FROM Vendor WHERE VendID='".$_POST['delID']."';";
 		if(execute($query)){
-			echo "Vendor deleted successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Vendor deleted successfully!";
+			header("Location: vendor.php?msg={$msg}");
 		}
 		else{
-			echo "Vendor couldn't be deleted! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Vendor couldn't be deleted! Try again";
+			header("Location: vendor.php?msg={$msg}");
 		}
 	}
 	else{
@@ -135,18 +148,21 @@ else if(strpos($_SERVER['HTTP_REFERER'],'vendor.php')){
 			'".$_POST['Phone']."'
 		);";
 		if(!execute($query)){
-			echo "Vendor addition unsuccessfull! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Vendor couldn't be added. Try again!";
+			header("Location: vendor.php?msg={$msg}");
 		}
-		print_r($_POST);
 		$vendID=mysql_fetch_assoc(execute("SELECT VendID FROM Vendor ORDER BY VendID DESC LIMIT 1;"));
 		$query="INSERT INTO VendorBrands VALUES(
 			'".$vendID['VendID']."',
 			'".$_POST['Brands']."'
 		);";
 		if(execute($query)){
-			echo "New Vendor added successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="New Vendor added successfully!";
+			header("Location: index.php?msg={$msg}");
+		}
+		else{
+			$msg="Vendor couldn't be added. Try again!";
+			header("Location: vendor.php?msg={$msg}");
 		}
 	}
 }
@@ -155,29 +171,39 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editVendor.php')){
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE Vendor SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE VendID=".$_POST['VendID'].";";
-		execute($query);
+		if(!execute($query)){
+			$msg="Vendor details couldn't be updated. Try again!";
+			header("Location: editVendor.php?msg={$msg}");
+		}
 	}
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='VendorBrands';";
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE VendorBrands SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE VendID=".$_POST['VendID'].";";
-		execute($query);
+		if(!execute($query)){
+			$msg="Vendor details couldn't be updated. Try again!";
+			header("Location: editVendor.php?msg={$msg}");
+		}
 	}
 	if(execute($query)){
-		echo "Vendor details modified successfully! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+		$msg="Vendor details modified successfully!";
+		header("Location: index.php?msg={$msg}");
+	}
+	else{
+		$msg="Vendor details couldn't be updated. Try again!";
+		header("Location: editVendor.php?msg={$msg}");
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'item.php')){
 	if(isset($_POST['delID'])){
 		$query="DELETE FROM Items WHERE ID='".$_POST['delID']."';";
 		if(execute($query)){
-			echo "Item deleted successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Item deleted successfully!";
+			header("Location: item.php?msg={$msg}");
 		}
 		else{
-			echo "Item couldn't be deleted! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Item couldn't be deleted! Try again";
+			header("Location: item.php?msg={$msg}");
 		}
 	}
 	else{
@@ -189,8 +215,8 @@ else if(strpos($_SERVER['HTTP_REFERER'],'item.php')){
 			'".$_POST['Category']."'
 		);";
 		if(!execute($query)){
-			echo "Item Entry Unsuccessfull! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Item Entry Unsuccessful! Try again";
+			header("Location: item.php?msg={$msg}");
 		}
 		print_r($_POST);
 		$ID=mysql_fetch_assoc(execute("SELECT ID FROM Items ORDER BY ID DESC LIMIT 1;"));
@@ -205,8 +231,12 @@ else if(strpos($_SERVER['HTTP_REFERER'],'item.php')){
 		);";
 		echo $query;
 		if(execute($query)){
-			echo "Item Successfully Added! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Item Successfully Added! ";
+			header("Location: index.php?msg={$msg}");
+		}
+		else{
+			$msg="Item Entry Unsuccessful! Try again";
+			header("Location: item.php?msg={$msg}");
 		}
 	}
 }
@@ -215,27 +245,33 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editItem.php')){
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE Items SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ID=".$_POST['ID'].";";
-		echo $query."<br>";
-		execute($query);
+		if(!execute($query)){
+			$msg="Item details couldn't be updated! Try again";
+			header("Location: {$referer}&msg={$msg}");
+		}
 	}
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='".$_POST['Category']."';";
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE ".$_POST['Category']." SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ID=".$_POST['ID'].";";
-		echo $query."<br>";
-		execute($query);
+		if(!execute($query)){
+			$msg="Item details couldn't be updated! Try again";
+			header("Location: {$referer}&msg={$msg}");
+		}
 	}
+	$msg="Item details updated successfully!";
+	header("Location: item.php?msg={$msg}");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'serviceCenter.php')){
 	if(isset($_POST['delID'])){
 		$query="DELETE FROM AuthorizedSC WHERE ASCID='".$_POST['delID']."';";
 		if(execute($query)){
-			echo "ASC deleted successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="ASC deleted successfully!";
+			header("Location: serviceCenter.php?msg={$msg}");
 		}
 		else{
-			echo "ASC couldn't be deleted! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="ASC couldn't be deleted. Try again";
+			header("Location: serviceCenter.php?msg={$msg}");
 		}
 	}
 	else{
@@ -246,18 +282,21 @@ else if(strpos($_SERVER['HTTP_REFERER'],'serviceCenter.php')){
 			'".$_POST['Phone']."'
 		);";
 		if(!execute($query)){
-			echo "ASC addition unsuccessfull! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="ASC addition unsuccessful! Try again";
+			header("Location: serviceCenter.php?msg={$msg}");
 		}
-		print_r($_POST);
 		$ASCID=mysql_fetch_assoc(execute("SELECT ASCID FROM AuthorizedSC ORDER BY ASCID DESC LIMIT 1;"));
 		$query="INSERT INTO AuthorizedService VALUES(
 			'".$ASCID['ASCID']."',
 			'".$_POST['ServicesSupported']."'
 		);";
 		if(execute($query)){
-			echo "New Vendor added successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="ASC added successfully!";
+			header("Location: serviceCenter.php?msg={$msg}");
+		}
+		else{
+			$msg="ASC addition unsuccessful! Try again";
+			header("Location: serviceCenter.php?msg={$msg}");
 		}
 	}
 }
@@ -266,27 +305,33 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editServiceCenter.php')){
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE AuthorizedSC SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ASCID=".$_POST['ASCID'].";";
-		echo $query."<br>";
-		execute($query);
+		if(!execute($query)){
+			$msg="ASC couldn't be updated! Please try again";
+			header("Location: {$referer}&msg={$msg}");
+		}
 	}
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='AuthorizedService';";
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE AuthorizedService SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE ASCID=".$_POST['ASCID'].";";
-		echo $query."<br>";
-		execute($query);
+		if(!execute($query)){
+			$msg="ASC couldn't be updated! Please try again";
+			header("Location: {$referer}&msg={$msg}");
+		}
 	}
+	$msg="ASC updated successfully!";
+	header("Location: serviceCenter.php?msg={$msg}");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'brand.php')){
 	if(isset($_POST['delID'])){
 		$query="DELETE FROM Brand WHERE Name='".$_POST['delID']."';";
 		if(execute($query)){
-			echo "Brand deleted successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Brand deleted successfully! ";
+			header("Location: brand.php?msg={$msg}");
 		}
 		else{
-			echo "Brand couldn't be deleted! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Brand couldn't be deleted! Try again";
+			header("Location: brand.php?msg={$msg}");
 		}
 	}
 	else{
@@ -297,12 +342,12 @@ else if(strpos($_SERVER['HTTP_REFERER'],'brand.php')){
 			'".$_POST['Rating']."'
 		);";
 		if(!execute($query)){
-			echo "Brand addition unsuccessfull! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Brand addition unsuccessful! Try again";
+			header("Location: brand.php?msg={$msg}");
 		}
 		else{
-			echo "New Brand added successfully! Redirecting...";
-			header("Refresh: 2; URL={$referer}");
+			$msg="Brand addition successful!";
+			header("Location: brand.php?msg={$msg}");
 		}
 	}
 }
@@ -311,9 +356,13 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editBrand.php')){
 	$result=execute($query);
 	while($field=mysql_fetch_array($result)){
 		$query="UPDATE Brand SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE Name='".$_POST['Name']."';";
-		echo $query."<br>";
-		execute($query);
+		if(!execute($query)){
+			$msg="Brand couldn't be updated! Try again";
+			header("Location: {$referer}&msg={$msg}");
+		}
 	}
+	$msg="Brand updated successfully!";
+	header("Location: index.php?msg={$msg}");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'newOrder.php')){
 	$maxItems = 5;
@@ -322,14 +371,14 @@ else if(strpos($_SERVER['HTTP_REFERER'],'newOrder.php')){
 	$Order = mysql_fetch_row($result);
 	$OrderID = (int)$Order[0];
 	$OrderID++;
-	echo $OrderID;
+	//echo $OrderID;
 	if($_SESSION['ID'] == 0){
-		echo "Invalid stuff";
+	//	echo "Invalid stuff";
 		header("Location: {$referer}");
 	}
 	$ID = $_SESSION['ID'];
 	$date = date('Y-m-d', time());
-	echo $date;
+	//echo $date;
 
 	$query = "insert into SalesOrder(CustID, Date) values($ID, \"$date\")";
 	execute($query);
@@ -338,18 +387,19 @@ else if(strpos($_SERVER['HTTP_REFERER'],'newOrder.php')){
 			if($_POST['quantity-'.$i] > 0){
 				$item = $_POST['item-'.$i];
 				$quantity = $_POST['quantity-'.$i];
-				echo "Yo".$item."Yo".$quantity;
+	//			echo "Yo".$item."Yo".$quantity;
 				$subquery = "insert into OrderItems values({$OrderID}, {$item}, $quantity)";
-				echo $subquery."\n";
+	//			echo $subquery."\n";
 				execute($subquery);
 			}
 		}
 	}
 	$query = "insert into Shipment values({$OrderID}, \"{$_POST['date']}\", \"{$_POST['time']}\", \"{$_POST['address']}\", \"Processing\", NULL)";
-	echo $query;
-	execute($query);
-	header("Location: {$referer}");
-
+	//echo $query;
+	if(execute($query)){
+		$msg="Order successfully placed!";
+		header("Location: index.php?msg={$msg}");
+	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'giveFeedback.php')){
 	$query="INSERT INTO Feedback(CustID,OrderID,TicketNo,Feedback,Rating) VALUES(
@@ -360,12 +410,12 @@ else if(strpos($_SERVER['HTTP_REFERER'],'giveFeedback.php')){
 		'".$_POST['Rating']."'
 	);";
 	if(!execute($query)){
-		echo "Feedback coudn't be submitted! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+		$msg="Feedback couldn't be submitted! Try again";
+		header("Location: giveFeedback.php?msg={$msg}");
 	}
 	else{
-		echo "Feedback submitted successfully! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+		echo "Feedback submitted successfully!";
+		header("Location: index.php?msg={$msg}");
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editTicket.php')){
@@ -373,30 +423,39 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editTicket.php')){
 	foreach($fields as $field){
 		$idStatus=(explode(',',$field));
 		$query="UPDATE Ticket SET Status='".$_POST[$field]."' WHERE TicketNo=".$idStatus[0].";";
-		execute($query);
+		if(!execute($query)){
+			$msg="Ticket couldn't be updated! Try again";
+			header("Location: {$referer}?msg={$msg}");
+		}
 	}
-	echo "Ticket status updates successfully! Redirecting...";
-	header("Refresh: 2; URL={$referer}");
+	$msg="Ticket status updated successfully!";
+	header("Location: index.php?msg={$msg}");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editShipment.php')){
 	$fields=array_keys($_POST);
-	print_r($_POST);
 	foreach($fields as $field){
 		$idStatus=(explode(',',$field));
 		if($idStatus[1]=='Status')
 			$query="UPDATE Shipment SET Status='".$_POST[$field]."' WHERE OrderID=".$idStatus[0].";";
 		else
 			$query="UPDATE Shipment SET DeliveryDate='".$_POST[$field]."' WHERE OrderID=".$idStatus[0].";";
-		execute($query);
+		if(!execute($query)){
+			$msg="Shipment couldn't be updated! Try again";
+			header("Location: editShipment.php?msg={$msg}");
+		}
 	}
-	echo "Shipment status updates successfully! Redirecting...";
-	header("Refresh: 2; URL={$referer}");
+	$msg="Shipment status updated successfully!";
+	header("Location: index.php?msg={$msg}");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'makePayment.php')){
 	$query = "insert into Payment values ({$_POST['orderID']}, \"{$_POST['desc']}\", \"{$_POST['amount']}\", \"{$_POST['method']}\")";
-	execute($query);
-	echo "Payment successful! Redirecting...";
-	header("Refresh: 2; URL=index.php");
-	
+	if(execute($query)){
+		$msg="Payment successful! ";
+		header("Location: index.php?msg={$msg}");
+	}
+	else{
+		$msg="Payment wasn't successful! Try again";
+		header("Location: makePayment.php?msg={$msg}");
+	}
 }
 ?>

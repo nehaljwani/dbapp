@@ -9,7 +9,7 @@
 	</p>
 	<div style="clear: both;">&nbsp;</div>
 	<div class="entry">
-		You have successfully logged out! Click <a href="login.php">here </a> to login again!
+		You have successfully logged out! Click <a href="index.php">here </a> to login again!
 	</div>
 </div>
 <?php include_once('footer.php'); ?>

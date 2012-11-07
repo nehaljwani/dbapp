@@ -17,7 +17,6 @@
 	<button type="button" id='add' class="more">Add a Brand</button>
 <?php }
 ?>
-
 	<br><br><br><br>
 	<div class="entry">
 <form method="POST" action="dbentry.php" name="delete">
@@ -38,19 +37,19 @@
 		</table>
                 </form>
 		<form id="newBrandDetails" method="post" action="dbentry.php">
-		Enter Vendor details:
+		Enter Brand details:
 			<table >
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="Name"></td>
+					<td><input type="text" name="Name" required></td>
 				</tr>
 				<tr>
 					<td>Description</td>
-					<td><input type="text" name="Description"></td>
+					<td><input type="text" name="Description" required></td>
 				</tr>
 				<tr>
 					<td>Rating</td>
-					<td><input type="text" name="Rating"></td>
+					<td><input type="text" name="Rating" required></td>
 				</tr>
 			</table>		
 			<input type="submit" class="more" value="Submit">

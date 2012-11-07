@@ -15,15 +15,15 @@
 		<tbody>
 		<tr>
 			<td>Shipping Address</td>
-			<td><input type="text" name="address"></td>
+			<td><input type="text" name="address" required></td>
 		</tr>
 		<tr>
 			<td>Preferred Date</td>
-			<td><input type="text" name="date" value="yyyy-mm-dd"></td>
+			<td><input type="text" name="date" value="yyyy-mm-dd" required></td>
 		</tr>
 		<tr>
 			<td>Preferred Time</td>
-			<td><input type="text" name="time" value="00:00:00"></td>
+			<td><input type="text" name="time" value="00:00:00" required></td>
 		</tr>
 <?php
 

@@ -14,8 +14,8 @@
 	<div class="entry">
 		<table class="ticket-table" >
 				<tr>
-					<td>CustID</td>
-					<td>TicketNo</td>
+					<td>Customer ID</td>
+					<td>Ticket No.</td>
 					<td>Grievance</td>
 					<td>Date</td>
 					<td>Status</td>

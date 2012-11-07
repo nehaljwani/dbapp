@@ -14,7 +14,7 @@ Customer Registration		registration.php SHOULD NOT BE VISIBLE WHEN LOGGED IN (OP
 	 Make Payment		makePayment.php C
 	 View Payments		viewPayments.php C
 	 Raise Ticket		raiseTicket.php C
-	 View Tickets		ticketItems.php C
+	 View Tickets		ticketItems.php C DEPRECATED
 	 View Ticket Status	ticket.php C
 	 View Self Feedbacks	feedback.php C
 	 View Shipment		shipment.php ERROR
@@ -33,6 +33,32 @@ Admin	 View/Add Employee	employee.php C
 	 View All Feedback	feedback.php	
 	 Make Supply Order	???
 	 Make Supply Payment	???
-	 Shipping Status Modify	editShipment.php DOES NOT OPEN!!
+	 Shipping Status Modify	editShipment.php
 
 ASC	 View/Modify Ticekts	editTicket.php
+
+User cat
+
+brand.php
+viewOrders.php
+serviceCenter.php
+makePayment.php
+viewPayments.php
+vendor.php
+employee.php
+shipment.php
+ticket.php
+feedback.php
+
+Admin cat
+
+viewOrders.php
+viewPayments.php
+employee.php
+vendor.php
+serviceCenter.php
+brand.php
+editTicket.php
+editShipment.php
+customer.php 
+ticketItems.php

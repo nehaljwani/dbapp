@@ -5,6 +5,7 @@
 	<h2 class="title"><a href="#">Order Details</a></h2>
 	<div style="clear: both;">&nbsp;</div>
 	<div class="entry">
+	Click to see the details of your order! <br><br>
 <?php
 
 

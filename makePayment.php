@@ -13,7 +13,7 @@
 
 				<select name="orderID">
 				<?php 
-					$query = "select OrderID from SalesOrder where CustID = {$_SESSION['ID']}";
+					$query = "select OrderID from SalesOrder where CustID = {$_SESSION['ID']} and OrderID not in (Select OrderID from Payment where CustID={$_SESSION['ID']})";
 					queryOptionsList($query);
 				?>
 				</select>				
@@ -22,11 +22,11 @@
 			</tr>
 			<tr>
 				<td>Amount</td>
-				<td><input type="text" name="amount"></td>
+				<td><input type="text" name="amount" required></td>
 			</tr>
 			<tr>
 				<td>Description</td>
-				<td><input type="text" name="desc"></td>
+				<td><input type="text" name="desc" required></td>
 			</tr>
 			<tr>
 				<td>Payment Method</td>

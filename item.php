@@ -48,15 +48,17 @@
 				</tr>
 				<tr>
 					<td>Description</td>
-					<td><input type="text" name="Description"></td>
+					<td><input type="text" name="Description" required></td>
 				</tr>
 				<tr>
 					<td>Brand</td>
-					<td><input type="text" name="Brand"></td>
+					<td>
+						<select name="Brand"><?php echo genBrand();?></select>
+					</td>
 				</tr>
 				<tr>
 					<td>Price</td>
-					<td><input type="text" name="Price"></td>
+					<td><input type="text" name="Price" required></td>
 				</tr>
 				<tr>
 					<td>Category</td>

@@ -218,7 +218,7 @@ function getEmployeeDetails($query){
 	$row=mysql_fetch_assoc($result);
 	$fields=array_keys($row);
 	foreach($fields as $detail){
-		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='empDet' name='".$detail."'></td></tr>\n";
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='empDet' name='".$detail."' required></td></tr>\n";
 	}
 	return $string;
 }
@@ -230,7 +230,7 @@ function getBrandDetails($query){
 	$row=mysql_fetch_assoc($result);
 	$fields=array_keys($row);
 	foreach($fields as $detail){
-		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='brandDet' name='".$detail."'></td></tr>\n";
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='brandDet' name='".$detail."' required></td></tr>\n";
 	}
 	return $string;
 }
@@ -242,7 +242,13 @@ function getASCDetails($query){
 	$row=mysql_fetch_assoc($result);
 	$fields=array_keys($row);
 	foreach($fields as $detail){
-		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='ASCDet' name='".$detail."'></td></tr>\n";
+		if($detail=="Brand"){
+			$string.="<tr><td>".$detail."</td><td><select name=".$detail.">";
+			$string.=genBrand();
+			$string.="</td></tr>\n";
+		}
+		else
+			$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='ASCDet' name='".$detail."' required></td></tr>\n";
 	}
 	return $string;
 }
@@ -254,7 +260,7 @@ function getVendorDetails($query){
 	$row=mysql_fetch_assoc($result);
 	$fields=array_keys($row);
 	foreach($fields as $detail){
-		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='vendDet' name='".$detail."'></td></tr>\n";
+		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='vendDet' name='".$detail."' required></td></tr>\n";
 	}
 	return $string;
 }
@@ -266,7 +272,13 @@ function getItemDetails($query){
 	$row=mysql_fetch_assoc($result);
 	$fields=array_keys($row);
 	foreach($fields as $detail){
-		$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='itemDet' name='".$detail."'></td></tr>\n";
+		if($detail=="Brand"){
+			$string.="<tr><td>".$detail."</td><td><select name=".$detail.">";
+			$string.=genBrand();
+			$string.="</td></tr>\n";
+		}
+		else
+			$string.="<tr><td>".$detail."</td><td><input type='text' value='".$row[$detail]."' class='itemDet' name='".$detail."' required></td></tr>\n";
 	}
 	return $string;
 }
@@ -294,12 +306,12 @@ function getShipment($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==5)
-				$string.="<td><input type='date' name='".$rows['TicketNo'].",DeliveryDate' value='yyyy-mm-dd' size=10></td>";
+				$string.="<td><input type='date' name='".$rows['OrderID'].",DeliveryDate' value='yyyy-mm-dd' size=10></td>";
 			else
 				$string.="<td>".$row."</td>";
 			$count++;
 		}
-		$string.="<td><select name='".$rows['TicketNo'].",Status'>
+		$string.="<td><select name='".$rows['OrderID'].",Status'>
 			<option value='Unread'>Unread </option>
 			<option value='Processing'>Processing </option>
 			<option value='Done'> Done</option>
@@ -345,6 +357,18 @@ function getTickets($query){
 			</select></td></tr>";
 	}   
 	return $string;
+}
+
+function genBrand(){
+	$result=execute("SELECT Name FROM Brand;");
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		foreach($rows as $row){
+			$string.="<option value=".$row.">".$row."</option>";
+		}
+	}   
+	return $string;
+
 }
 
 function quantityList($maxNumber){

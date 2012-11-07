@@ -11,11 +11,11 @@
 			<table id="entry">
 				<tr>
 					<td>Customer ID</td>
-					<td><input type="text" name="ID"></td>
+					<td><input type="text" name="ID" readonly value=<?php echo $_SESSION['ID']; ?> ></td>
 				</tr>
 				<tr>
 					<td valign="top">Grievance</td>
-					<td><textarea rows="8" cols="40" name="Grievance"></textarea></td>
+					<td><textarea rows="8" cols="40" name="Grievance" required></textarea></td>
 				</tr>
 			</table>		
 			<input type="submit" name="submit" value="Submit" class="more">

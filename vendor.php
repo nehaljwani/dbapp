@@ -41,19 +41,19 @@
 			<table >
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="Name"></td>
+					<td><input type="text" name="Name" required></td>
 				</tr>
 				<tr>
 					<td>Address</td>
-					<td><input type="text" name="Address"></td>
+					<td><input type="text" name="Address" required></td>
 				</tr>
 				<tr>
 					<td>Phone</td>
-					<td><input type="text" name="Phone"></td>
+					<td><input type="text" name="Phone" required></td>
 				</tr>
 				<tr>
 					<td>Brands</td>
-					<td><input type="text" name="Brands"></td>
+					<td><input type="text" name="Brands" required></td>
 				</tr>
 			</table>		
 			<input type="submit" class="more" value="Submit">

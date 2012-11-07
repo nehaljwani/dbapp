@@ -17,7 +17,7 @@
 					<td>Category</td>
 				</tr>
 			<?php 
-			$query="SELECT ID,Name,Brand,Price,Category FROM Items ORDER BY Category";
+			$query="SELECT ID,Name,Brand,Price,Category FROM Items ORDER BY Category, Price";
 			echo generateItems($query);
 			?>
 		</table>

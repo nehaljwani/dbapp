@@ -20,12 +20,11 @@
 
 <?php }
 ?>
-
-	<br><br><br><br>
+</div><div class="post">
 	<div class="entry">
 <form method="POST" action="dbentry.php" name="delete">
 
-		<table class="payment-table" id="ASCDetails">
+		<table class="item-table" id="ASCDetails">
 				<tr>
 					<td>ASCID</td>
 					<td>Brand</td>
@@ -47,19 +46,19 @@
 			<table >
 				<tr>
 					<td>Brand</td>
-					<td><input type="text" name="Brand" required></td>
+					<td><select name="Brand"><?php echo genBrand(); ?></td>
 				</tr>
 				<tr>
 					<td>Address</td>
-					<td><input type="text" name="Address"></td>
+					<td><input type="text" name="Address" required></td>
 				</tr>
 				<tr>
 					<td>Phone</td>
-					<td><input type="text" name="Phone"></td>
+					<td><input type="text" name="Phone" required></td>
 				</tr>
 				<tr>
 					<td>Services Supported</td>
-					<td><input type="text" name="ServicesSupported"></td>
+					<td><input type="text" name="ServicesSupported" required></td>
 				</tr>
 			</table>		
 			<input type="submit" class="more" value="Submit">

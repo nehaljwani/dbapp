@@ -23,6 +23,8 @@ $filearray = explode("/", $file);
 $file = $filearray[2];
 
 ?>
+<?php session_start();
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="keywords" content="" />
@@ -32,6 +34,7 @@ $file = $filearray[2];
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<script type='text/javascript' src='./js/jquery.min.js'></script>
 </head>
 <body>
 <div id="wrapper">
@@ -43,19 +46,19 @@ $file = $filearray[2];
 			<div id="menu">
 				<ul>
 					<?php if($_SESSION['ID']=="0"){ ?>
-					<li class="current_page_item"><a href="#">Homepage</a></li>
-					<li><a href="selectItems.php">Items</a></li>
-					<li><a href="">Order</a></li>
-					<li><a href="raiseTicket.php">Ticket</a></li>
-					<?php if($file=='raiseTicket'){ ?><li><a href="pn.php">Pn</a></li><?php } ?>
-					<li><a href="about.php">About</a></li>
+					<li <?php if($file == "index") echo "class=\"current_page_item\""; ?>><a href="index.php">Home</a></li>
+					<li <?php if($file == "item") echo "class=\"current_page_item\""; ?>><a href="item.php">Items</a></li>
+					<li <?php if($file == "viewOrders") echo "class=\"current_page_item\""; ?>><a href="viewOrders.php">Orders</a></li>
+					<li <?php if($file == "feedback") echo "class=\"current_page_item\""; ?>><a href="feedback.php">Feedback</a></li>
+					<li <?php if($file == "ticket") echo "class=\"current_page_item\""; ?>><a href="ticket.php">Tickets</a></li>
+					<li <?php if($file == "about") echo "class=\"current_page_item\""; ?>><a href="about.php">About</a></li>
 					<?php }else{ ?>
-					<li class="current_page_item"><a href="#">Home</a></li>
-					<li><a href="selectItems.php">Items</a></li>
-					<li><a href="">Order</a></li>
-					<li><a href="">Tickets</a></li>
-					<li><a href="raiseTicket.php">Feedback</a></li>
-					<li><a href="about.php">About</a></li>
+					<li <?php if($file == "index") echo "class=\"current_page_item\""; ?>><a href="index.php">Home</a></li>
+					<li <?php if($file == "selectItems") echo "class=\"current_page_item\""; ?> ><a href="selectItems.php">Items</a></li>
+					<li <?php if($file == "newOrder") echo "class=\"current_page_item\""; ?>><a href="newOrder.php">Order</a></li>
+					<li <?php if($file == "raiseTicket") echo "class=\"current_page_item\""; ?>><a href="raiseTicket.php">Tickets</a></li>
+					<li <?php if($file == "giveFeedback") echo "class=\"current_page_item\""; ?>><a href="giveFeedback.php">Feedback</a></li>
+					<li <?php if($file == "about") echo "class=\"current_page_item\""; ?>><a href="about.php">About</a></li>
 					<?php } ?>
 				</ul>
 			</div>
@@ -66,7 +69,14 @@ $file = $filearray[2];
 	<div id="page">
 		<div id="content">
 			<!-- Break 1 -->
-<?php session_start();
-	if(isset($_SESSION['Username']))
-		echo "Greetings, ".$_SESSION['Username']."!";
+<?php 	if(isset($_SESSION['Username']))
+echo "Greetings, ".$_SESSION['Username']."!"; ?>
+<?php
+
+if(isset($_GET['msg'])){
+	echo "<div class=\"msg\">";
+	echo $_GET['msg'];
+	echo "</div>";
+}
+
 ?>

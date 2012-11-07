@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>Rating</td>
-					<td><input type="text" name="Rating"></td>
+					<td><input type="text" name="Rating" required></td>
 				</tr>
 			</table>		
 			<input type="submit" name="submit" value="Submit" class="more">
