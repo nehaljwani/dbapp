@@ -6,21 +6,18 @@
 	<span class="date">Click on any item to view its complete details!</span>
 	</p>
 
-	<div style="clear: both;">&nbsp;</div>
+	<div style="clear: botd;">&nbsp;</div>
 	<div class="entry">
-		<table>
-			<thead>
+		<table class="item-table">
 				<tr>
-					<th>ItemId</th>
-					<th>Description</th>
-					<th>Brand</th>
-					<th>Name</th>
-					<th>Price</th>
-					<th>Category</th>
+					<td>ItemId</td>
+					<td>Brand</td>
+					<td>Name</td>
+					<td>Price</td>
+					<td>Category</td>
 				</tr>
-			</thead>
 			<?php 
-			$query="SELECT * FROM Items ORDER BY Category";
+			$query="SELECT ID,Name,Brand,Price,Category FROM Items ORDER BY Category";
 			echo generateItems($query);
 			?>
 		</table>

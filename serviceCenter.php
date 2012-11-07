@@ -9,22 +9,22 @@
 	<span class="date">Click to edit the details of any ASC!</span>
 	</p>
 	<div style="clear: both;">&nbsp;</div>
+	<div class="entry">
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<script type='text/javascript' src='./js/asc.js'></script>
 	<button type="button" id='view' class="more">View Service Centers</button>
 	<button type="button" id='add' class="more">Add Service Center</button>
+	</div>
 	<br><br><br><br>
 	<div class="entry">
-		<table id="ASCDetails" >
-			<thead>
+		<table class="payment-table" id="ASCDetails">
 				<tr>
-					<th>ASCID</th>
-					<th>Brand</th>
-					<th>Address</th>
-					<th>Phone</th>
-					<th>Services Supported</th>
+					<td>ASCID</td>
+					<td>Brand</td>
+					<td>Address</td>
+					<td>Phone</td>
+					<td>Services Supported</td>
 				</tr>
-			</thead>
 			<?php echo generateASC($query); ?>
 		</table>
 		<form id="newASCDetails" method="post" action="dbentry.php">
@@ -47,7 +47,7 @@
 					<td><input type="text" name="ServicesSupported"></td>
 				</tr>
 			</table>		
-			<input type="submit" class="more">
+			<input type="submit" class="more" value="Submit">
 		</form>	
 	</div>
 </div>

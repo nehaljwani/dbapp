@@ -15,17 +15,15 @@
 	<button type="button" id='add' class="more">Add a new item</button>
 	<br><br><br><br>
 	<div class="entry">
-		<table id="itemDetails" >
-			<thead>
+		<table class="item-table" >
 				<tr>
-					<th>ID</th>
-					<th>Description</th>
-					<th>Brand</th>
-					<th>Name</th>
-					<th>Price</th>
-					<th>Category</th>
+					<td>ID</td>
+					<td>Description</td>
+					<td>Brand</td>
+					<td>Name</td>
+					<td>Price</td>
+					<td>Category</td>
 				</tr>
-			</thead>
 			<?php echo generateItems2($query); ?>
 		</table>
 		<form id="newItemDetails" method="post" action="dbentry.php">
@@ -103,7 +101,7 @@
                                 </tbody>
 
 			</table>		
-			<input type="submit" class="more">
+			<input type="submit" class="more" value="Submit">
 		</form>	
 	</div>
 </div>

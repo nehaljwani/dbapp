@@ -163,7 +163,7 @@ CREATE TABLE `Employee` (
   `PAN` char(10) DEFAULT NULL,
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmpID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `Employee` (
 
 LOCK TABLES `Employee` WRITE;
 /*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABCDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver'),(3,'Nehal','1993-08-06','#2008, Sabzi Street, Mumbai','2012-11-13',50000,'ABHNJ0493L','Manager');
+INSERT INTO `Employee` VALUES (1,'Akhilesh Wadhwa','1988-11-06','#2008, Sabzi Street, Mumbai','2012-06-24',35000,'ABCDE1234F','Manager'),(2,'Tanvir Khanna','1990-07-22','#408, Kachi Nagar, Luckhnow','2012-11-26',5000,'APLOS91022','Driver'),(3,'Nehal','1993-08-06','#2008, Sabzi Street, Mumbai','2012-11-13',50000,'ABHNJ0493L','Manager'),(4,'Ankush Jain','1994-02-28','Near Easyday, Thapar College, Patiala','2010-02-01',1000000,'ABCDPQ1234','Engineer');
 /*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,6 +197,7 @@ CREATE TABLE `Engineer` (
 
 LOCK TABLES `Engineer` WRITE;
 /*!40000 ALTER TABLE `Engineer` DISABLE KEYS */;
+INSERT INTO `Engineer` VALUES (4,'CSE');
 /*!40000 ALTER TABLE `Engineer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,8 +411,35 @@ CREATE TABLE `OrderItems` (
 
 LOCK TABLES `OrderItems` WRITE;
 /*!40000 ALTER TABLE `OrderItems` DISABLE KEYS */;
-INSERT INTO `OrderItems` VALUES (1,'1',6),(1,'3',2),(1,'5',1),(2,'1',3),(2,'2',1),(10,'2',4),(10,'3',1),(11,'2',4),(11,'3',1),(12,'3',2),(13,'3',2),(14,'3',2),(15,'6',1),(15,'1',8);
+INSERT INTO `OrderItems` VALUES (1,'1',6),(1,'3',2),(1,'5',1),(2,'1',3),(2,'2',1),(10,'2',4),(10,'3',1),(11,'2',4),(11,'3',1),(12,'3',2),(13,'3',2),(14,'3',2),(15,'6',1),(15,'1',8),(16,'2',3);
 /*!40000 ALTER TABLE `OrderItems` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Payment`
+--
+
+DROP TABLE IF EXISTS `Payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Payment` (
+  `OrderID` int(10) DEFAULT NULL,
+  `Description` varchar(100) DEFAULT NULL,
+  `Amount` int(10) DEFAULT NULL,
+  `PaymentMethod` varchar(20) DEFAULT NULL,
+  KEY `OrderID` (`OrderID`),
+  CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Payment`
+--
+
+LOCK TABLES `Payment` WRITE;
+/*!40000 ALTER TABLE `Payment` DISABLE KEYS */;
+INSERT INTO `Payment` VALUES (9,'First payment',1000,'cheque');
+/*!40000 ALTER TABLE `Payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -479,7 +507,7 @@ CREATE TABLE `SalesOrder` (
   PRIMARY KEY (`OrderID`),
   KEY `CustID` (`CustID`),
   CONSTRAINT `SalesOrder_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,7 +516,7 @@ CREATE TABLE `SalesOrder` (
 
 LOCK TABLES `SalesOrder` WRITE;
 /*!40000 ALTER TABLE `SalesOrder` DISABLE KEYS */;
-INSERT INTO `SalesOrder` VALUES (1,14,'2012-11-20'),(2,15,'2012-10-24'),(9,15,'2012-11-07'),(10,15,'2012-11-07'),(11,15,'2012-11-07'),(12,15,'2012-11-07'),(13,15,'2012-11-07'),(14,15,'2012-11-07'),(15,15,'2012-11-07');
+INSERT INTO `SalesOrder` VALUES (1,14,'2012-11-20'),(2,15,'2012-10-24'),(9,15,'2012-11-07'),(10,15,'2012-11-07'),(11,15,'2012-11-07'),(12,15,'2012-11-07'),(13,15,'2012-11-07'),(14,15,'2012-11-07'),(15,15,'2012-11-07'),(16,16,'2012-11-07');
 /*!40000 ALTER TABLE `SalesOrder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -541,7 +569,7 @@ CREATE TABLE `Shipment` (
 
 LOCK TABLES `Shipment` WRITE;
 /*!40000 ALTER TABLE `Shipment` DISABLE KEYS */;
-INSERT INTO `Shipment` VALUES (1,'2012-12-01','17:00:00','Gryffindor Tower, Hogwarts','Pending',NULL),(2,'2012-11-15','07:00:00','The Shire, Middle Earth','Pending',NULL),(14,'2012-12-23','08:00:00','E-14, OBH, IIIT Hyderabad, Gachibowli','Done','2012-01-01'),(15,'2012-12-15','09:00:00','Hell, Underground','Unread','0000-00-00');
+INSERT INTO `Shipment` VALUES (1,'2012-12-01','17:00:00','Gryffindor Tower, Hogwarts','Pending',NULL),(2,'2012-11-15','07:00:00','The Shire, Middle Earth','Pending',NULL),(14,'2012-12-23','08:00:00','E-14, OBH, IIIT Hyderabad, Gachibowli','Done','2012-01-01'),(15,'2012-12-15','09:00:00','Hell, Underground','Unread','0000-00-00'),(16,'2012-12-15','17:00:00','#1305, Sec31-C, Chandigarh','Processing',NULL);
 /*!40000 ALTER TABLE `Shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -740,4 +768,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-07  4:18:35
+-- Dump completed on 2012-11-07 17:41:52

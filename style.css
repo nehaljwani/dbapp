@@ -544,9 +544,40 @@ table, tr, td {
 }
 .order-detail td{
 	min-width: 100px;
-	border: 1px solid black;
+	border: 1px solid #CCC;
 	padding: 5px;
 }
 .order-detail tr td:nth-child(1) {
 	font-weight: bold;
+}
+.payment-form td{
+	min-width: 100px;
+	padding: 5px;
+}
+.payment-form tr td:nth-child(1) {
+	font-weight: bold;
+}
+.payment-table td{
+	min-width: 100px;
+	padding: 5px;
+	border: 1px solid #CCC;
+}
+.payment-table tr:nth-child(1) {
+	font-weight: bold;
+}
+.ticket-table tr:nth-child(1) {
+	font-weight: bold;
+}
+.ticket-table td{
+	min-width: 100px;
+	padding: 5px;
+	border: 1px solid #CCC;
+}
+.item-table tr:nth-child(1) {
+	font-weight: bold;
+}
+.item-table td{
+	min-width: 35px;
+	padding: 5px;
+	border: 1px solid #CCC;
 }

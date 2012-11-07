@@ -9,20 +9,17 @@
 ?>
 <div class="post">
 	<h2 class="title"><a href="#">List Tickets </a></h2>
-	<div style="clear: both;">&nbsp;</div>
+	<div style="clear: botd;">&nbsp;</div>
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
-	<br><br><br><br>
 	<div class="entry">
-		<table id="ticketDetails" >
-			<thead>
+		<table class="ticket-table" >
 				<tr>
-					<th>CustID</th>
-					<th>TicketNo</th>
-					<th>Grievance</th>
-					<th>Date</th>
-					<th>Status</th>
+					<td>CustID</td>
+					<td>TicketNo</td>
+					<td>Grievance</td>
+					<td>Date</td>
+					<td>Status</td>
 				</tr>
-			</thead>
 			<?php echo data2Table($query); ?>
 		</table>
 	</div>

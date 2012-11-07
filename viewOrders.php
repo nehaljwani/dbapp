@@ -14,7 +14,7 @@ if(isset($_GET['id'])){
 	assocQueryTable($query);
 	echo "</table>";
 	$query = "select Brand, Name, Category, Price, Quantity from OrderItems, Items where OrderItems.Item = Items.ID and OrderID = {$_GET['id']}";
-	echo "<table class = \"order-table\">";
+	echo "<table class = \"payment-table\">";
 	echo "<tr><td>Brand</td><td>Name</td><td>Category</td><td>Price</td><td>Quantity</td></tr>";
 	echo orderTable($query);
 	echo "</table>";
@@ -27,7 +27,7 @@ else{
 	else{
 		$query = "select OrderID, Name, Date from SalesOrder, Customer where SalesOrder.CustID = Customer.CustID and Customer.CustID = {$_SESSION['ID']} Order by Date;";		
 	}
-	echo "<table class = \"order-table\">";
+	echo "<table class = \"payment-table\">";
 	echo "<tr><td>Order ID</td><td>Customer</td><td>Date</td></tr>";
 	echo orderTable($query);
 	echo "</table>";

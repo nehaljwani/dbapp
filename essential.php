@@ -36,8 +36,15 @@ function generateItems($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=itemDetails.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=itemDetails.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -50,8 +57,15 @@ function generateItems2($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=editItem.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=editItem.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -64,8 +78,15 @@ function generateEmployee($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=editEmployee.php?EmpID=".$rows['EmpID']."&Category=".$rows['Category'].">".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=editEmployee.php?EmpID=".$rows['EmpID']."&Category=".$rows['Category'].">".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -78,8 +99,15 @@ function generateVendor($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=editVendor.php?VendID=".$rows['VendID'].">".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=editVendor.php?VendID=".$rows['VendID'].">".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -92,8 +120,15 @@ function generateASC($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=editASC.php?ASCID=".$rows['ASCID'].">".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=editServiceCenter.php?ASCID=".$rows['ASCID'].">".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -105,8 +140,15 @@ function generateBrand($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=editBrand.php?Name='".$rows['Name']."'>".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=editBrand.php?Name='".$rows['Name']."'>".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -119,8 +161,15 @@ function generateTicket($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td><a href=ediTicket.php?TicketNo='".$rows['TicketNo']."'>".$row."</a></td>";
+			if($count==0){
+				$string.="<td><a href=ediTicket.php?TicketNo='".$rows['TicketNo']."'>".$row."</a></td>";
+			}
+			else{
+				$string.="<td>".$row."</td>";
+			}
+			$count++;
 		}
 		$string.="</tr>";
 	}   
@@ -150,8 +199,6 @@ function getBrandDetails($query){
 	}
 	return $string;
 }
-
-
 
 function getASCDetails($query){
 	dbconnect();
@@ -209,15 +256,19 @@ function getShipment($query){
 	$string="";
 	while($rows = mysql_fetch_assoc($result)){
 		$string.="<tr>";
+		$count=0;
 		foreach($rows as $row){
-			$string.="<td>".$row."</td>";
+			if($count==5)
+				$string.="<td><input type='date' name='".$rows['TicketNo'].",DeliveryDate' value='yyyy-mm-dd' size=10></td>";
+			else
+				$string.="<td>".$row."</td>";
+			$count++;
 		}
 		$string.="<td><select name='".$rows['TicketNo'].",Status'>
 			<option value='Unread'>Unread </option>
 			<option value='Processing'>Processing </option>
 			<option value='Done'> Done</option>
 			</select></td></tr>";
-		$string.="<td><input type='date' name='".$rows['TicketNo'].",DeliveryDate' value='NULL' size=10></td></tr>";
 	}   
 	return $string;
 }
@@ -275,7 +326,10 @@ function orderTable($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==0){
-				$string.="<td><a href='?id=".$row."'>".$row."</a></td>";
+				if(isset($rows['OrderID']))
+					$string.="<td><a href='?id=".$rows['OrderID']."'>".$row."</a></td>";
+				else
+					$string.="<td>".$row."</td>";
 			}
 			else{
 				$string.="<td>".$row."</td>";

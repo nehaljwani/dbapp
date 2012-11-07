@@ -53,7 +53,7 @@ for($i=1;$i<=$numList;$i++){
 		</table>
 		</form>
 
-		<p class="links"><a href="#" onclick="document.quantity.submit()" class="more">Submit</a></p>
+		<p class="links"><a href="#" onclick="document.forms['quantity'].submit();" class="more">Submit</a></p>
 	</div>
 </div>
 <?php include_once('footer.php'); ?>

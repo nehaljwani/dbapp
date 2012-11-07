@@ -6,14 +6,14 @@
 	<script type='text/javascript' src='./js/editEmployee.js'></script>
 	<div style="clear: both;">&nbsp;</div>
 	<div class="entry">
-		<form id="editEmployee" method="POST" action="dbentry.php">
+		<form id="editEmployee" method="POST" action="dbentry.php" name="edit">
 			<table>
 				<?php 
 				$query="SELECT * FROM Employee NATURAL JOIN ".$_GET['Category']." WHERE EmpID=".$_GET['EmpID'].";";
 				echo getEmployeeDetails($query);
 				?>
 			</table>
-			<input type=submit class="more">	
+			<a href="#" class="more" onclick="document.edit.submit()">Submit</a>	
 		</form>
 	</form>	
 </div>

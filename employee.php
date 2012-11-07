@@ -6,31 +6,29 @@
 <div class="post">
 	<h2 class="title"><a href="#">Employee List</a></h2>
 	<p class="meta">
-	<span class="date">Click to edit the details of any employee!</span>
+	<span class="date">Click to edit tde details of any employee!</span>
 	</p>
-	<div style="clear: both;">&nbsp;</div>
+	<div style="clear: botd;">&nbsp;</div>
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<script type='text/javascript' src='./js/employee.js'></script>
 	<button type="button" id='view' class="more">View Employees</button>
 	<button type="button" id='add' class="more">Add Employee</button>
 	<br><br><br><br>
 	<div class="entry">
-		<table id="employeeDetails" >
-			<thead>
+		<table class="item-table" id="employeeDetails">
 				<tr>
-					<th>EmpId</th>
-					<th>Name</th>
-					<th>DOB</th>
-					<th>Address</th>
-					<th>DOJ</th>
-					<th>Salary</th>
-					<th>PAN</th>
-					<th>Category</th>
+					<td>EmpId</td>
+					<td>Name</td>
+					<td>DOB</td>
+					<td>Address</td>
+					<td>DOJ</td>
+					<td>Salary</td>
+					<td>PAN</td>
+					<td>Category</td>
 				</tr>
-			</thead>
 			<?php echo generateEmployee($query); ?>
 		</table>
-		<form id="newEmployeeDetails" method="post" action="dbentry.php">
+		<form id="newEmployeeDetails" method="post" action="dbentry.php" name="employee">
 		Enter Employee details:
 			<table >
 				<tr>
@@ -85,7 +83,7 @@
 					<td><input type="text" name="Field2"></td>
 				</tr>
 			</table>		
-			<input type="submit" class="more">
+			<a href="#" class="more" onclick = "document.employee.submit()">Submit</a>
 		</form>	
 	</div>
 </div>

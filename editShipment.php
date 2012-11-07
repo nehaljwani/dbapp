@@ -2,9 +2,9 @@
 <?php 
 	include"essential.php";
 	if($_SESSION['ID']==0)
-		$query="SELECT * FROM Shipment;";
+		$query="SELECT OrderID, PreferredDate, PreferredTime, Address, Status,DeliveryDate FROM Shipment;";
 	else{
-		$query="SELECT * FROM Shipment WHERE CustID=".$_SESSION['ID'].";";
+		$query="SELECT OrderID, PreferredDate, PreferredTime, Address, Status,DeliveryDate FROM Shipment NATURAL JOIN SalesOrder WHERE CustID=".$_SESSION['ID'].";";
 	}
 ?>
 <div class="post">
@@ -14,19 +14,17 @@
 	<br><br><br><br>
 	<div class="entry">
 		<form method="POST" action="dbentry.php">
-		<table id="ticketDetails" >
-			<thead>
+		<table id="ticketDetails" class="item-table">
 				<tr>
-					<th>OrderID</th>
-					<th>Preferred Date</th>
-					<th>Preferred Time</th>
-					<th>Address</th>
-					<th>Status</th>
-					<th>New Status</th>
-					<th>Delivery Date</th>
+					<td>OrderID</td>
+					<td>Preferred Date</td>
+					<td>Preferred Time</td>
+					<td>Address</td>
+					<td>Status</td>
+					<td>Delivery Date</td>
+					<td>New Status</td>
 
 				</tr>
-			</thead>
 			<?php echo getShipment($query); ?>
 		</table>
 		<input type="Submit" value="Apply">

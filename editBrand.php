@@ -13,7 +13,7 @@
 				echo getBrandDetails($query);
 				?>
 			</table>
-			<input type=submit class="more">	
+			<input type=submit class="more" value="Submit">	
 		</form>
 	</form>	
 </div>

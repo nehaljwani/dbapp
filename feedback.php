@@ -8,24 +8,18 @@
 	}
 ?>
 <div class="post">
-	<h2 class="title"><a href="#">Vendor List </a></h2>
-	<p class="meta">
-	<span class="date">Click to edit the details of any Vendor!</span>
-	</p>
-	<div style="clear: both;">&nbsp;</div>
+	<h2 class="title"><a href="#">Feedback</a></h2>
+	<div style="clear: botd;">&nbsp;</div>
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
-	<br><br><br><br>
 	<div class="entry">
-		<table id="feedbackDetails" >
-			<thead>
+		<table class="ticket-table" >
 				<tr>
-					<th>CustID</th>
-					<th>OrderID</th>
-					<th>TicketNo</th>
-					<th>Feedback</th>
-					<th>Rating</th>
+					<td>Customer ID</td>
+					<td>Order ID</td>
+					<td>Ticket No</td>
+					<td>Feedback</td>
+					<td>Rating</td>
 				</tr>
-			</thead>
 			<?php echo data2Table($query); ?>
 		</table>
 	</div>

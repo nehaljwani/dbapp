@@ -2,9 +2,9 @@
 <?php 
 	include"essential.php";
 	if($_SESSION['ID']==0)
-		$query="SELECT * FROM Shipment;";
+		$query="SELECT OrderID, PreferredDate, PreferredTime, Address, Status,DeliveryDate FROM Shipment;";
 	else{
-		$query="SELECT * FROM Shipment WHERE CustID=".$_SESSION['ID'].";";
+		$query="SELECT OrderID, PreferredDate, PreferredTime, Address, Status,DeliveryDate FROM Shipment NATURAL JOIN SalesOrder WHERE CustID=".$_SESSION['ID'].";";
 	}
 ?>
 <div class="post">
@@ -13,17 +13,15 @@
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<br><br><br><br>
 	<div class="entry">
-		<table id="ticketDetails" >
-			<thead>
+		<table class="payment-table" id="ticketDetails" >
 				<tr>
-					<th>OrderID</th>
-					<th>Preferred Date</th>
-					<th>Preferred Time</th>
-					<th>Address</th>
-					<th>Status</th>
-					<th>Delivery Date</th>
+					<td>OrderID</td>
+					<td>Preferred Date</td>
+					<td>Preferred Time</td>
+					<td>Address</td>
+					<td>Status</td>
+					<td>Delivery Date</td>
 				</tr>
-			</thead>
 			<?php echo data2Table($query); ?>
 		</table>
 	</div>

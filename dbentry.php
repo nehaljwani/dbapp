@@ -99,7 +99,9 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editEmployee.php')){
 		$query="UPDATE ".$_POST['Category']." SET ".$field['Col']."='".$_POST[$field['Col']]."' WHERE EmpID=".$_POST['EmpID'].";";
 		echo $query."<br>";
 		execute($query);
+
 	}
+	header("Location: index.php");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'vendor.php')){
 	$query="INSERT INTO Vendor(Name,Address,Phone) VALUES(
@@ -259,7 +261,7 @@ else if(strpos($_SERVER['HTTP_REFERER'],'newOrder.php')){
 	echo $OrderID;
 	if($_SESSION['ID'] == 0){
 		echo "Invalid stuff";
-		header("Location: index.php");
+		header("Location: {$referer}");
 	}
 	$ID = $_SESSION['ID'];
 	$date = date('Y-m-d', time());
@@ -282,7 +284,7 @@ else if(strpos($_SERVER['HTTP_REFERER'],'newOrder.php')){
 	$query = "insert into Shipment values({$OrderID}, \"{$_POST['date']}\", \"{$_POST['time']}\", \"{$_POST['address']}\", \"Processing\", NULL)";
 	echo $query;
 	execute($query);
-	header("Location: index.php");
+	header("Location: {$referer}");
 
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'giveFeedback.php')){
@@ -323,7 +325,14 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editShipment.php')){
 			$query="UPDATE Shipment SET DeliveryDate='".$_POST[$field]."' WHERE OrderID=".$idStatus[0].";";
 		execute($query);
 	}
-	echo "Ticket status updates successfully! Redirecting...";
+	echo "Shipment status updates successfully! Redirecting...";
 	header("Refresh: 2; URL={$referer}");
+}
+else if(strpos($_SERVER['HTTP_REFERER'],'makePayment.php')){
+	$query = "insert into Payment values ({$_POST['orderID']}, \"{$_POST['desc']}\", \"{$_POST['amount']}\", \"{$_POST['method']}\")";
+	execute($query);
+	echo "Payment successful! Redirecting...";
+	header("Refresh: 2; URL=index.php");
+	
 }
 ?>

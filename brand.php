@@ -15,14 +15,12 @@
 	<button type="button" id='add' class="more">Add a Brand</button>
 	<br><br><br><br>
 	<div class="entry">
-		<table id="brandDetails" >
-			<thead>
+		<table class="payment-table" id="brandDetails" >
 				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Rating</th>
+					<td>Name</td>
+					<td>Description</td>
+					<td>Rating</td>
 				</tr>
-			</thead>
 			<?php echo generateBrand($query); ?>
 		</table>
 		<form id="newBrandDetails" method="post" action="dbentry.php">
@@ -41,7 +39,7 @@
 					<td><input type="text" name="Rating"></td>
 				</tr>
 			</table>		
-			<input type="submit" class="more">
+			<input type="submit" class="more" value="Submit">
 		</form>	
 	</div>
 </div>

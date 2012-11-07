@@ -15,16 +15,14 @@
 	<button type="button" id='add' class="more">Add a Vendor</button>
 	<br><br><br><br>
 	<div class="entry">
-		<table id="vendorDetails" >
-			<thead>
+		<table class="item-table" id="vendorDetails">
 				<tr>
-					<th>VendId</th>
-					<th>Name</th>
-					<th>Address</th>
-					<th>Phone</th>
-					<th>Brands</th>
+					<td>VendId</td>
+					<td>Name</td>
+					<td>Address</td>
+					<td>Phone</td>
+					<td>Brands</td>
 				</tr>
-			</thead>
 			<?php echo generateVendor($query); ?>
 		</table>
 		<form id="newVendorDetails" method="post" action="dbentry.php">
@@ -47,7 +45,7 @@
 					<td><input type="text" name="Brands"></td>
 				</tr>
 			</table>		
-			<input type="submit" class="more">
+			<input type="submit" class="more" value="Submit">
 		</form>	
 	</div>
 </div>
