@@ -10,6 +10,19 @@ Version    : 1.0
 Released   : 20120915
 
 -->
+<?php 
+
+$file = $_SERVER['PHP_SELF'];
+
+$filearray = explode(".php", $file);
+
+$file = $filearray[0];
+
+$filearray = explode("/", $file);
+
+$file = $filearray[2];
+
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="keywords" content="" />
@@ -29,11 +42,21 @@ Released   : 20120915
 			</div>
 			<div id="menu">
 				<ul>
+					<?php if($_SESSION['ID']=="0"){ ?>
 					<li class="current_page_item"><a href="#">Homepage</a></li>
 					<li><a href="selectItems.php">Items</a></li>
 					<li><a href="">Order</a></li>
 					<li><a href="raiseTicket.php">Ticket</a></li>
+					<?php if($file=='raiseTicket'){ ?><li><a href="pn.php">Pn</a></li><?php } ?>
 					<li><a href="about.php">About</a></li>
+					<?php }else{ ?>
+					<li class="current_page_item"><a href="#">Home</a></li>
+					<li><a href="selectItems.php">Items</a></li>
+					<li><a href="">Order</a></li>
+					<li><a href="">Tickets</a></li>
+					<li><a href="raiseTicket.php">Feedback</a></li>
+					<li><a href="about.php">About</a></li>
+					<?php } ?>
 				</ul>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ Name				Filename		Work
 
 Customer Registration		registration.php SHOULD NOT BE VISIBLE WHEN LOGGED IN (OPTIONAL, LIGHT HAI)
          Login			login.php
-	 View Items		selectItems.php CORRECT UNDERLINES/HYPERLINKS
+	 View Items		selectItems.php for user and item.php for admin... there is some difference CORRECT UNDERLINES/HYPERLINKS
 	 Make Sales Order 	newOrder.php C
 	 View Order		viewOrders.php C
 	 Provide Feedback	giveFeedback.php C

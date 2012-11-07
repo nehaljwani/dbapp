@@ -60,14 +60,21 @@ function generateItems2($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==0){
-				$string.="<td><a href=editItem.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+				if($_SESSION['ID']==0)
+					$string.="<td><a href=editItem.php?ID=".$rows['ID']."&Category=".$rows['Category'].">".$row."</a></td>";
+				else
+					$string.="<td>".$row."</td>";
 			}
 			else{
 				$string.="<td>".$row."</td>";
 			}
 			$count++;
 		}
-		$string.="</tr>";
+		if($_SESSION['ID']==0){
+			$string.="<td><button type='submit' class='more' name='delID' value=".$rows['ID']." >Delete</button></a></td></tr>";
+		}
+		else
+			$string.="</tr>";
 	}   
 	return $string;
 }
@@ -81,14 +88,21 @@ function generateEmployee($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==0){
-				$string.="<td><a href=editEmployee.php?EmpID=".$rows['EmpID']."&Category=".$rows['Category'].">".$row."</a></td>";
+				if($_SESSION['ID']==0)
+					$string.="<td><a href=editEmployee.php?EmpID=".$rows['EmpID']."&Category=".$rows['Category'].">".$row."</a></td>";
+				else
+					$string.="<td>".$row."</td>";
 			}
 			else{
 				$string.="<td>".$row."</td>";
 			}
 			$count++;
 		}
-		$string.="</tr>";
+		if($_SESSION['ID']==0){
+			$string.="<td><button type='submit' class='more' name='delID' value=".$rows['EmpID']." >Delete</button></a></td></tr>";
+		}
+		else
+			$string.="</tr>";
 	}   
 	return $string;
 }
@@ -102,14 +116,21 @@ function generateVendor($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==0){
-				$string.="<td><a href=editVendor.php?VendID=".$rows['VendID'].">".$row."</a></td>";
+				if($_SESSION['ID']==0)
+					$string.="<td><a href=editVendor.php?VendID=".$rows['VendID'].">".$row."</a></td>";
+				else
+					$string.="<td>".$row."</td>";
 			}
 			else{
 				$string.="<td>".$row."</td>";
 			}
 			$count++;
 		}
-		$string.="</tr>";
+		if($_SESSION['ID']==0){
+			$string.="<td><button type='submit' class=\"more\" name='delID' value=".$rows['VendID'].">Delete</button></a></td></tr>";
+		}
+		else
+			$string.="</tr>";
 	}   
 	return $string;
 }
@@ -123,14 +144,21 @@ function generateASC($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==0){
-				$string.="<td><a href=editServiceCenter.php?ASCID=".$rows['ASCID'].">".$row."</a></td>";
+				if($_SESSION['ID']==0)
+					$string.="<td><a href=editServiceCenter.php?ASCID=".$rows['ASCID'].">".$row."</a></td>";
+				else
+					$string.="<td>".$row."</td>";
 			}
 			else{
 				$string.="<td>".$row."</td>";
 			}
 			$count++;
 		}
-		$string.="</tr>";
+		if($_SESSION['ID']==0){
+			$string.="<td><button type='submit' class='more' name='delID' value=".$rows['ASCID']." >Delete</button></a></td></tr>";
+		}
+		else
+			$string.="</tr>";
 	}   
 	return $string;
 }
@@ -143,14 +171,21 @@ function generateBrand($query){
 		$count=0;
 		foreach($rows as $row){
 			if($count==0){
-				$string.="<td><a href=editBrand.php?Name='".$rows['Name']."'>".$row."</a></td>";
+				if($_SESSION['ID']==0)
+					$string.="<td><a href=editBrand.php?Name='".$rows['Name']."'>".$row."</a></td>";
+				else
+					$string.="<td>".$row."</td>";
 			}
 			else{
 				$string.="<td>".$row."</td>";
 			}
 			$count++;
 		}
-		$string.="</tr>";
+		if($_SESSION['ID']==0){
+			$string.="<td><button type='submit' class='more' name='delID' value=".$rows['Name']." >Delete</button></a></td></tr>";
+		}
+		else
+			$string.="</tr>";
 	}   
 	return $string;
 }

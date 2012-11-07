@@ -3,9 +3,11 @@ $(document).ready(function() {
 	$('#view').click(function(){ 
 		$('#newVendorDetails').hide();
 		$('#vendorDetails').show();	
+		$('#delbtn').show();
 	});
 	$('#add').click(function(){ 
 		$('#newVendorDetails').show();
-		$('#vendorDetails').hide();	
+		$('#vendorDetails').hide();
+		$('#delbtn').hide();
 	});
 })

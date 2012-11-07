@@ -5,18 +5,26 @@
 ?>
 <div class="post">
 	<h2 class="title"><a href="#">Authorized Service Center List</a></h2>
-	<p class="meta">
-	<span class="date">Click to edit the details of any ASC!</span>
-	</p>
 	<div style="clear: both;">&nbsp;</div>
 	<div class="entry">
 	<script type='text/javascript' src='./js/jquery.min.js'></script>
 	<script type='text/javascript' src='./js/asc.js'></script>
+	</div>
+<?php if($_SESSION['ID']==0){
+	?>
+	<p class="meta">
+	<span class="date">Click to edit the details of any ASC!</span>
+	</p>
 	<button type="button" id='view' class="more">View Service Centers</button>
 	<button type="button" id='add' class="more">Add Service Center</button>
-	</div>
+
+<?php }
+?>
+
 	<br><br><br><br>
 	<div class="entry">
+<form method="POST" action="dbentry.php" name="delete">
+
 		<table class="payment-table" id="ASCDetails">
 				<tr>
 					<td>ASCID</td>
@@ -24,9 +32,16 @@
 					<td>Address</td>
 					<td>Phone</td>
 					<td>Services Supported</td>
+					<?php if($_SESSION['ID']==0){
+                                        ?>
+                                        <td>Delete Option</td>
+                                        <?php }
+                                        ?>
+
 				</tr>
 			<?php echo generateASC($query); ?>
 		</table>
+                </form>
 		<form id="newASCDetails" method="post" action="dbentry.php">
 		Enter Service Center details:
 			<table >

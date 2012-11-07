@@ -61,28 +61,41 @@ else if($referer=='login.php'){
 	}
 }
 else if($referer=='employee.php'){
-	$query="INSERT INTO Employee(Name,DOB,Address,DOJ,Salary,PAN,Category) VALUES(
-		'".$_POST['Name']."',
-		'".$_POST['DOB']."',
-		'".$_POST['Address']."',
-		'".$_POST['DOJ']."',
-		'".$_POST['Salary']."',
-		'".$_POST['PAN']."',
-		'".$_POST['Category']."'
-	);";
-	if(!execute($query)){
-		echo "Employee Registration Unsuccessfull! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	if(isset($_POST['delID'])){
+		$query="DELETE FROM Employee WHERE EmpID='".$_POST['delID']."';";
+		if(execute($query)){
+			echo "Employee deleted successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		else{
+			echo "Employee couldn't be deleted! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
-	print_r($_POST);
-	$EmpID=mysql_fetch_assoc(execute("SELECT EmpID FROM Employee ORDER BY EmpID DESC LIMIT 1;"));
-	$query="INSERT INTO ".$_POST['Category']." VALUES(
-		'".$EmpID['EmpID']."',
-		'".$_POST['Field2']."'
-	);";
-	if(execute($query)){
-		echo "Employee Registration Successfull! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	else{
+		$query="INSERT INTO Employee(Name,DOB,Address,DOJ,Salary,PAN,Category) VALUES(
+			'".$_POST['Name']."',
+			'".$_POST['DOB']."',
+			'".$_POST['Address']."',
+			'".$_POST['DOJ']."',
+			'".$_POST['Salary']."',
+			'".$_POST['PAN']."',
+			'".$_POST['Category']."'
+		);";
+		if(!execute($query)){
+			echo "Employee Registration Unsuccessfull! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		print_r($_POST);
+		$EmpID=mysql_fetch_assoc(execute("SELECT EmpID FROM Employee ORDER BY EmpID DESC LIMIT 1;"));
+		$query="INSERT INTO ".$_POST['Category']." VALUES(
+			'".$EmpID['EmpID']."',
+			'".$_POST['Field2']."'
+		);";
+		if(execute($query)){
+			echo "Employee Registration Successfull! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editEmployee.php')){
@@ -104,26 +117,38 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editEmployee.php')){
 	header("Location: index.php");
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'vendor.php')){
-	$query="INSERT INTO Vendor(Name,Address,Phone) VALUES(
-		'".$_POST['Name']."',
-		'".$_POST['Address']."',
-		'".$_POST['Phone']."'
-	);";
-	if(!execute($query)){
-		echo "Vendor addition unsuccessfull! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	if(isset($_POST['delID'])){
+		$query="DELETE FROM Vendor WHERE VendID='".$_POST['delID']."';";
+		if(execute($query)){
+			echo "Vendor deleted successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		else{
+			echo "Vendor couldn't be deleted! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
-	print_r($_POST);
-	$vendID=mysql_fetch_assoc(execute("SELECT VendID FROM Vendor ORDER BY VendID DESC LIMIT 1;"));
-	$query="INSERT INTO VendorBrands VALUES(
-		'".$vendID['VendID']."',
-		'".$_POST['Brands']."'
-	);";
-	if(execute($query)){
-		echo "New Vendor added successfully! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	else{
+		$query="INSERT INTO Vendor(Name,Address,Phone) VALUES(
+			'".$_POST['Name']."',
+			'".$_POST['Address']."',
+			'".$_POST['Phone']."'
+		);";
+		if(!execute($query)){
+			echo "Vendor addition unsuccessfull! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		print_r($_POST);
+		$vendID=mysql_fetch_assoc(execute("SELECT VendID FROM Vendor ORDER BY VendID DESC LIMIT 1;"));
+		$query="INSERT INTO VendorBrands VALUES(
+			'".$vendID['VendID']."',
+			'".$_POST['Brands']."'
+		);";
+		if(execute($query)){
+			echo "New Vendor added successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
-
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editVendor.php')){
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Vendor';";
@@ -144,32 +169,45 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editVendor.php')){
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'item.php')){
-	$query="INSERT INTO Items(Name,Description,Brand,Price,Category) VALUES(
-		'".$_POST['Name']."',
-		'".$_POST['Description']."',
-		'".$_POST['Brand']."',
-		'".$_POST['Price']."',
-		'".$_POST['Category']."'
-	);";
-	if(!execute($query)){
-		echo "Item Entry Unsuccessfull! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	if(isset($_POST['delID'])){
+		$query="DELETE FROM Items WHERE ID='".$_POST['delID']."';";
+		if(execute($query)){
+			echo "Item deleted successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		else{
+			echo "Item couldn't be deleted! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
-	print_r($_POST);
-	$ID=mysql_fetch_assoc(execute("SELECT ID FROM Items ORDER BY ID DESC LIMIT 1;"));
-	$string="";
-	for($i=1;$i<=10;$i++){
-		if(($_POST['Field'.$i]))
-			$string.=",'".$_POST['Field'.$i]."'";
-	}          
-	$query="INSERT INTO ".$_POST['Category']." VALUES(
-		'".$ID['ID']."'
-		".$string."
-	);";
-	echo $query;
-	if(execute($query)){
-		echo "Item Successfully Added! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	else{
+		$query="INSERT INTO Items(Name,Description,Brand,Price,Category) VALUES(
+			'".$_POST['Name']."',
+			'".$_POST['Description']."',
+			'".$_POST['Brand']."',
+			'".$_POST['Price']."',
+			'".$_POST['Category']."'
+		);";
+		if(!execute($query)){
+			echo "Item Entry Unsuccessfull! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		print_r($_POST);
+		$ID=mysql_fetch_assoc(execute("SELECT ID FROM Items ORDER BY ID DESC LIMIT 1;"));
+		$string="";
+		for($i=1;$i<=10;$i++){
+			if(($_POST['Field'.$i]))
+				$string.=",'".$_POST['Field'.$i]."'";
+		}          
+		$query="INSERT INTO ".$_POST['Category']." VALUES(
+			'".$ID['ID']."'
+			".$string."
+		);";
+		echo $query;
+		if(execute($query)){
+			echo "Item Successfully Added! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editItem.php')){
@@ -189,26 +227,39 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editItem.php')){
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'serviceCenter.php')){
-	$query="INSERT INTO AuthorizedSC(Brand,Address,Phone) VALUES(
-		'".$_POST['Brand']."',
-		'".$_POST['Address']."',
-		'".$_POST['Phone']."'
-	);";
-	if(!execute($query)){
-		echo "ASC addition unsuccessfull! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	if(isset($_POST['delID'])){
+		$query="DELETE FROM AuthorizedSC WHERE ASCID='".$_POST['delID']."';";
+		if(execute($query)){
+			echo "ASC deleted successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		else{
+			echo "ASC couldn't be deleted! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
-	print_r($_POST);
-	$ASCID=mysql_fetch_assoc(execute("SELECT ASCID FROM AuthorizedSC ORDER BY ASCID DESC LIMIT 1;"));
-	$query="INSERT INTO AuthorizedService VALUES(
-		'".$ASCID['ASCID']."',
-		'".$_POST['ServicesSupported']."'
-	);";
-	if(execute($query)){
-		echo "New Vendor added successfully! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
-	}
+	else{
 
+		$query="INSERT INTO AuthorizedSC(Brand,Address,Phone) VALUES(
+			'".$_POST['Brand']."',
+			'".$_POST['Address']."',
+			'".$_POST['Phone']."'
+		);";
+		if(!execute($query)){
+			echo "ASC addition unsuccessfull! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		print_r($_POST);
+		$ASCID=mysql_fetch_assoc(execute("SELECT ASCID FROM AuthorizedSC ORDER BY ASCID DESC LIMIT 1;"));
+		$query="INSERT INTO AuthorizedService VALUES(
+			'".$ASCID['ASCID']."',
+			'".$_POST['ServicesSupported']."'
+		);";
+		if(execute($query)){
+			echo "New Vendor added successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editServiceCenter.php')){
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='AuthorizedSC';";
@@ -227,20 +278,33 @@ else if(strpos($_SERVER['HTTP_REFERER'],'editServiceCenter.php')){
 	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'brand.php')){
-	$query="INSERT INTO Brand(Name,Description,Rating) VALUES(
-		'".$_POST['Name']."',
-		'".$_POST['Description']."',
-		'".$_POST['Rating']."'
-	);";
-	if(!execute($query)){
-		echo "Brand addition unsuccessfull! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
+	if(isset($_POST['delID'])){
+		$query="DELETE FROM Brand WHERE Name='".$_POST['delID']."';";
+		if(execute($query)){
+			echo "Brand deleted successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		else{
+			echo "Brand couldn't be deleted! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
 	}
 	else{
-		echo "New Brand added successfully! Redirecting...";
-		header("Refresh: 2; URL={$referer}");
-	}
 
+		$query="INSERT INTO Brand(Name,Description,Rating) VALUES(
+			'".$_POST['Name']."',
+			'".$_POST['Description']."',
+			'".$_POST['Rating']."'
+		);";
+		if(!execute($query)){
+			echo "Brand addition unsuccessfull! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+		else{
+			echo "New Brand added successfully! Redirecting...";
+			header("Refresh: 2; URL={$referer}");
+		}
+	}
 }
 else if(strpos($_SERVER['HTTP_REFERER'],'editBrand.php')){
 	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='Brand';";

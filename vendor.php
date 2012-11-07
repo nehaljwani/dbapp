@@ -5,16 +5,21 @@
 ?>
 <div class="post">
 	<h2 class="title"><a href="#">Vendor List </a></h2>
+	<script type='text/javascript' src='./js/jquery.min.js'></script>
+	<script type='text/javascript' src='./js/vendor.js'></script>
+	<div style="clear: both;">&nbsp;</div>
+<?php if($_SESSION['ID']==0){
+?>
 	<p class="meta">
 	<span class="date">Click to edit the details of any Vendor!</span>
 	</p>
-	<div style="clear: both;">&nbsp;</div>
-	<script type='text/javascript' src='./js/jquery.min.js'></script>
-	<script type='text/javascript' src='./js/vendor.js'></script>
 	<button type="button" id='view' class="more">View Vendors</button>
 	<button type="button" id='add' class="more">Add a Vendor</button>
+<?php }
+?>
 	<br><br><br><br>
 	<div class="entry">
+		<form method="POST" action="dbentry.php" name="delete">
 		<table class="item-table" id="vendorDetails">
 				<tr>
 					<td>VendId</td>
@@ -22,9 +27,15 @@
 					<td>Address</td>
 					<td>Phone</td>
 					<td>Brands</td>
+					<?php if($_SESSION['ID']==0){
+					?>
+					<td>Delete Option</td>
+					<?php }
+					?>
 				</tr>
 			<?php echo generateVendor($query); ?>
-		</table>
+	</table>
+		</form>
 		<form id="newVendorDetails" method="post" action="dbentry.php">
 		Enter Vendor details:
 			<table >

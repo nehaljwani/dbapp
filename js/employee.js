@@ -2,11 +2,13 @@ $(document).ready(function() {
 	$('#newEmployeeDetails').hide();
 	$('#view').click(function(){ 
 		$('#newEmployeeDetails').hide();
-		$('#employeeDetails').show();	
+		$('#employeeDetails').show();
+		$('#delbtn').show();
 	});
 	$('#add').click(function(){ 
 		$('#newEmployeeDetails').show();
 		$('#employeeDetails').hide();	
+		$('#delbtn').hide();
 	});
 	$('.Category').each(function(){$(this).hide()})
 	$('#'+$('#EmployeeType').val()).show()

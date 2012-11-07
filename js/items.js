@@ -2,11 +2,13 @@ $(document).ready(function() {
 	$('#newItemDetails').hide();
 	$('#view').click(function(){ 
 		$('#newItemDetails').hide();
-		$('#itemDetails').show();	
+		$('#itemDetails').show();
+		$('#delbtn').show();
 	});
 	$('#add').click(function(){ 
 		$('#newItemDetails').show();
 		$('#itemDetails').hide();	
+		$('#delbtn').hide();
 	});
 	$('.Category').each(function(){$(this).hide()})
 	$('#'+$('#itemType').val()).show()
