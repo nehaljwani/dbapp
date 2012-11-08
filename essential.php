@@ -371,6 +371,20 @@ function genBrand(){
 
 }
 
+function genItem($category){
+	$query="SELECT column_name Col FROM information_schema.columns WHERE table_name='{$category}';";
+	$result=execute($query);
+	$string="";
+	while($rows = mysql_fetch_assoc($result)){
+		foreach($rows as $row){
+			if($row!='ID')
+				$string.="<td>".$row."</td>";
+		}
+	}   
+	return $string;
+
+}
+
 function quantityList($maxNumber){
 	for($i=0;$i<=$maxNumber;$i++){
 		echo "<option value='".$i."'>".$i."</option>\n";

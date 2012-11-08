@@ -12,7 +12,7 @@
 							<td>Name</td>
 							<td>Price</td>
 							<td>Category</td>
-							<td>Chipset</td>
+							<?php echo genItem($_GET['Category']); ?>
 						</tr>
 					<?php 
 						$query="SELECT * FROM Items NATURAL JOIN ".$_GET['Category']." WHERE ID=".$_GET['ID'].";";

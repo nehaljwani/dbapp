@@ -39,7 +39,7 @@ CREATE TABLE `AuthorizedSC` (
 
 LOCK TABLES `AuthorizedSC` WRITE;
 /*!40000 ALTER TABLE `AuthorizedSC` DISABLE KEYS */;
-INSERT INTO `AuthorizedSC` VALUES (1,'Toshiba','Toshiba America Information Systems, Inc. Digital Products Division 9740 Irvine Boulevard Irvine, CA 92618-1697','(949) 583-3000'),(3,'AMD','No.11, Chambers @ Mantri, Richmond Road , Bengaluru /Bangalore','(80) 30924700 ,');
+INSERT INTO `AuthorizedSC` VALUES (1,'Toshiba','Toshiba America Information Systems, Inc. Digital Products Division 9740 Irvine Boulevard Irvine, CA 92618-1697','(949) 583-3000'),(3,'AMD','No.11, Chambers @ Mantri, Richmond Road , Bengaluru /Bangalore','(80) 30924700 ,'),(4,'Acer','ABCD','1234');
 /*!40000 ALTER TABLE `AuthorizedSC` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `AuthorizedService` (
 
 LOCK TABLES `AuthorizedService` WRITE;
 /*!40000 ALTER TABLE `AuthorizedService` DISABLE KEYS */;
-INSERT INTO `AuthorizedService` VALUES (1,'X,Y,Z'),(3,'Repair, Replacement');
+INSERT INTO `AuthorizedService` VALUES (1,'X,Y,Z'),(3,'Repair, Replacement'),(4,'A, B, C');
 /*!40000 ALTER TABLE `AuthorizedService` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `Employee` (
   `PAN` char(10) DEFAULT NULL,
   `Category` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmpID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,8 +244,8 @@ CREATE TABLE `Forwarding` (
   `Status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`TicketNo`),
   KEY `ASCID` (`ASCID`),
-  CONSTRAINT `Forwarding_ibfk_4` FOREIGN KEY (`TicketNo`) REFERENCES `Ticket` (`TicketNo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Forwarding_ibfk_3` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Forwarding_ibfk_3` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Forwarding_ibfk_4` FOREIGN KEY (`TicketNo`) REFERENCES `Ticket` (`TicketNo`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -613,8 +613,8 @@ CREATE TABLE `SupplyOrder` (
   `Date` date DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `VendID` (`VendID`),
-  CONSTRAINT `SupplyOrder_ibfk_3` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `SupplyOrder_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `SupplyOrder_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SupplyOrder_ibfk_3` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -642,8 +642,8 @@ CREATE TABLE `SupplyReceipt` (
   `PaymentMethod` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `VendID` (`VendID`),
-  CONSTRAINT `SupplyReceipt_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `SupplyReceipt_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `SupplyReceipt_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SupplyReceipt_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -722,7 +722,7 @@ CREATE TABLE `Vendor` (
   `Address` varchar(500) DEFAULT NULL,
   `Phone` int(15) DEFAULT NULL,
   PRIMARY KEY (`VendID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -769,4 +769,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-08  3:05:58
+-- Dump completed on 2012-11-08 17:26:31
