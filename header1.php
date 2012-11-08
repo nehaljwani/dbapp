@@ -12,7 +12,6 @@ Released   : 20120915
 -->
 <?php 
 
-
 $file = $_SERVER['PHP_SELF'];
 
 $filearray = explode(".php", $file);
@@ -25,9 +24,6 @@ $file = $filearray[2];
 
 ?>
 <?php session_start();
-if(!isset($_SESSION['Username'])){
-	header("Location: index.php?msg=Please login");
-}
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

@@ -1,4 +1,4 @@
-<?php include_once('header.php'); ?>
+<?php include_once('header1.php'); ?>
 <div class="post">
 	<h2 class="title"><a href="#">Customer Registration</a></h2>
 	<div style="clear: both;">&nbsp;</div>

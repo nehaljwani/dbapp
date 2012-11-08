@@ -26,6 +26,7 @@
 								<li><a href="customer.php">Customer</a></li>
 								<li><a href="editTicket.php">Tickets</a></li>
 								<li><a href="editShipment.php">Shipments</a></li>
+								<li><a href="password.php">Change Password</a></li>
 						<?php	}
 							else if($_SESSION['ID']!=0){
 						?>
@@ -40,7 +41,7 @@
 								<li><a href="viewPayments.php">My Payments</a></li>
 								<li><a href="ticket.php">My Tickets</a></li>
 								<li><a href="feedback.php">My Feedbacks</a></li>
-									
+								<li><a href="password.php">Change Password</a></li>
 						<?php	}
 						?>
 					</ul>

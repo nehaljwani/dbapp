@@ -1,0 +1,245 @@
+CREATE TABLE `AuthorizedSC` (
+  `ASCID` int(10) NOT NULL AUTO_INCREMENT,
+  `Brand` varchar(100) DEFAULT NULL,
+  `Address` varchar(500) DEFAULT NULL,
+  `Phone` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`ASCID`),
+  KEY `Brand` (`Brand`),
+  CONSTRAINT `AuthorizedSC_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `AuthorizedService` (
+  `ASCID` int(10) DEFAULT NULL,
+  `ServicesSupported` varchar(500) DEFAULT NULL,
+  KEY `ASCID` (`ASCID`),
+  CONSTRAINT `AuthorizedService_ibfk_1` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Brand` (
+  `Name` varchar(100) NOT NULL DEFAULT '',
+  `Description` varchar(500) DEFAULT NULL,
+  `Rating` int(1) DEFAULT NULL,
+  PRIMARY KEY (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Customer` (
+  `CustID` int(10) NOT NULL AUTO_INCREMENT,
+  `Address` varchar(500) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  `Phone` varchar(15) NOT NULL,
+  `Username` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`CustID`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Driver` (
+  `EmpID` int(10) NOT NULL DEFAULT '0',
+  `LicenseNo` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`EmpID`),
+  CONSTRAINT `Driver_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Employee` (
+  `EmpID` int(10) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `Address` varchar(500) DEFAULT NULL,
+  `DOJ` date DEFAULT NULL,
+  `Salary` int(7) DEFAULT NULL,
+  `PAN` char(10) DEFAULT NULL,
+  `Category` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`EmpID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Engineer` (
+  `EmpID` int(10) NOT NULL DEFAULT '0',
+  `Specialization` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`EmpID`),
+  CONSTRAINT `Engineer_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Feedback` (
+  `CustID` int(10) DEFAULT NULL,
+  `OrderID` int(10) DEFAULT NULL,
+  `TicketNo` int(10) NOT NULL DEFAULT '0',
+  `Feedback` varchar(1000) DEFAULT NULL,
+  `Rating` int(5) DEFAULT NULL,
+  KEY `CustID` (`CustID`),
+  CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Forwarding` (
+  `TicketNo` int(10) NOT NULL DEFAULT '0',
+  `ProductName` varchar(100) DEFAULT NULL,
+  `ProblemDesc` varchar(1000) DEFAULT NULL,
+  `ASCID` int(10) DEFAULT NULL,
+  `Status` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`TicketNo`),
+  KEY `ASCID` (`ASCID`),
+  CONSTRAINT `Forwarding_ibfk_3` FOREIGN KEY (`ASCID`) REFERENCES `AuthorizedSC` (`ASCID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Forwarding_ibfk_4` FOREIGN KEY (`TicketNo`) REFERENCES `Ticket` (`TicketNo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `HDD` (
+  `ID` int(10) NOT NULL DEFAULT '0',
+  `Size` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `HDD_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Items` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(1000) DEFAULT NULL,
+  `Brand` varchar(50) DEFAULT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Price` int(8) DEFAULT NULL,
+  `Category` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Brand` (`Brand`),
+  CONSTRAINT `Items_ibfk_1` FOREIGN KEY (`Brand`) REFERENCES `Brand` (`Name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Manager` (
+  `EmpID` int(10) NOT NULL DEFAULT '0',
+  `Department` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`EmpID`),
+  CONSTRAINT `Manager_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Monitor` (
+  `ID` int(10) NOT NULL DEFAULT '0',
+  `Resolution` varchar(20) DEFAULT NULL,
+  `ScreenSize` int(4) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `Monitor_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Motherboard` (
+  `ID` int(10) NOT NULL DEFAULT '0',
+  `Chipset` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `Motherboard_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `OrderItems` (
+  `OrderID` int(10) NOT NULL DEFAULT '0',
+  `Item` varchar(100) DEFAULT NULL,
+  `Quantity` int(10) DEFAULT NULL,
+  KEY `OrderID` (`OrderID`),
+  CONSTRAINT `OrderItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Payment` (
+  `OrderID` int(10) DEFAULT NULL,
+  `Description` varchar(100) DEFAULT NULL,
+  `Amount` int(10) DEFAULT NULL,
+  `PaymentMethod` varchar(20) DEFAULT NULL,
+  KEY `OrderID` (`OrderID`),
+  CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Processor` (
+  `ID` int(10) NOT NULL DEFAULT '0',
+  `Frequency` int(5) DEFAULT NULL,
+  `Cores` int(3) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `Processor_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `RAM` (
+  `ID` int(10) NOT NULL DEFAULT '0',
+  `Frequency` int(5) DEFAULT NULL,
+  `Size` int(5) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `RAM_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SalesOrder` (
+  `OrderID` int(10) NOT NULL AUTO_INCREMENT,
+  `CustID` int(10) DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `CustID` (`CustID`),
+  CONSTRAINT `SalesOrder_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SalesPerson` (
+  `EmpID` int(10) NOT NULL DEFAULT '0',
+  `SalesNo` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`EmpID`),
+  CONSTRAINT `SalesPerson_ibfk_1` FOREIGN KEY (`EmpID`) REFERENCES `Employee` (`EmpID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Shipment` (
+  `OrderID` int(10) NOT NULL DEFAULT '0',
+  `PreferredDate` date DEFAULT NULL,
+  `PreferredTime` time DEFAULT NULL,
+  `Address` varchar(1000) DEFAULT NULL,
+  `Status` varchar(200) DEFAULT NULL,
+  `DeliveryDate` date DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  CONSTRAINT `Shipment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SupplyItems` (
+  `OrderID` int(10) NOT NULL DEFAULT '0',
+  `Item` int(10) DEFAULT NULL,
+  `Quantity` int(5) DEFAULT NULL,
+  `RatePerItem` int(8) DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  CONSTRAINT `SupplyItems_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SupplyOrder` (
+  `OrderID` int(10) NOT NULL DEFAULT '0',
+  `VendID` int(10) DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `VendID` (`VendID`),
+  CONSTRAINT `SupplyOrder_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SupplyOrder_ibfk_3` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SupplyReceipt` (
+  `VendID` int(10) DEFAULT NULL,
+  `OrderID` int(10) NOT NULL DEFAULT '0',
+  `Description` varchar(100) DEFAULT NULL,
+  `Amount` int(10) DEFAULT NULL,
+  `PaymentMethod` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `VendID` (`VendID`),
+  CONSTRAINT `SupplyReceipt_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SupplyReceipt_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `SalesOrder` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Ticket` (
+  `CustID` int(10) DEFAULT NULL,
+  `TicketNo` int(10) NOT NULL AUTO_INCREMENT,
+  `Grievance` varchar(200) DEFAULT NULL,
+  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Status` varchar(200) DEFAULT 'Unread',
+  PRIMARY KEY (`TicketNo`),
+  KEY `CustID` (`CustID`),
+  CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`CustID`) REFERENCES `Customer` (`CustID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `User` (
+  `Username` varchar(20) DEFAULT NULL,
+  `Password` varchar(50) DEFAULT NULL,
+  UNIQUE KEY `UserName` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Vendor` (
+  `VendID` int(10) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) NOT NULL,
+  `Address` varchar(500) DEFAULT NULL,
+  `Phone` int(15) DEFAULT NULL,
+  PRIMARY KEY (`VendID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `VendorBrands` (
+  `VendID` int(10) NOT NULL DEFAULT '0',
+  `Brands` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`VendID`),
+  CONSTRAINT `VendorBrands_ibfk_1` FOREIGN KEY (`VendID`) REFERENCES `Vendor` (`VendID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

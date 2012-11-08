@@ -458,4 +458,24 @@ else if(strpos($_SERVER['HTTP_REFERER'],'makePayment.php')){
 		header("Location: makePayment.php?msg={$msg}");
 	}
 }
+else if(strpos($_SERVER['HTTP_REFERER'],'password.php')){
+	echo "Hello";
+	$query="SELECT Password FROM User WHERE Username='".$_SESSION['Username']."';";
+	$result=mysql_fetch_assoc(execute($query));
+	if($result['Password']==MD5($_POST['password1'])){
+		$query="Update User set Password='".MD5($_POST['Password'])."' WHERE Username='".$_SESSION['Username']."';";
+		if(!execute($query)){
+			$msg="Something went wrong. Try again!";
+			header("Location: index.php?msg={$msg}");
+		}
+		else{
+			$msg="Password changed successfully!";
+			header("Location: index.php?msg={$msg}");
+		}
+	}
+	else{
+		$msg="Wrong password! Try again";
+		header("Location: index.php?msg={$msg}");
+	}
+}
 ?>
